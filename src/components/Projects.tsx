@@ -4,7 +4,7 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projectsData = [
   {
-    image: '/src/assets/projects/flyfish.png', 
+    image: '/projects/flyfish.png', 
     title: 'Fly Fish - Virtual Art Gallery',
     description: 'A virtual art gallery for sustainable living, featuring artisan products and interactive animations with a mobile-first, responsive design.',
     tags: ['React', 'Netlify', 'CSS Grid', 'Flexbox'],
@@ -12,7 +12,7 @@ const projectsData = [
     sourceUrl: 'https://github.com/JosephMeghanathD/fly-fish', 
   },
   {
-    image: '/src/assets/projects/sudoku.png', 
+    image: '/projects/sudoku.png', 
     title: 'Interactive Sudoku Game',
     description: 'A classic logic-based Sudoku puzzle game built with vanilla JavaScript, featuring a clean UI and validation logic.',
     tags: ['JavaScript', 'HTML5', 'CSS3'],
@@ -20,7 +20,7 @@ const projectsData = [
     sourceUrl: 'https://github.com/JosephMeghanathD/sudoku',
   },
   {
-    image: '/src/assets/projects/xo.png', 
+    image: '/projects/xo.png', 
     title: 'Tic-Tac-Toe (XO)',
     description: 'The classic game of Tic-Tac-Toe. A simple yet fun project to demonstrate game state management and win-condition logic.',
     tags: ['JavaScript', 'HTML5', 'CSS3'],
@@ -28,7 +28,7 @@ const projectsData = [
     sourceUrl: 'https://github.com/JosephMeghanathD/XO',
   },
   {
-    image: '/src/assets/projects/multi.png', 
+    image: '/projects/multi.png', 
     title: 'Multi-Line to Single-Line Tool',
     description: 'A handy browser utility to convert multi-line text blocks into a single continuous line, useful for various data formatting tasks.',
     tags: ['JavaScript', 'HTML5', 'CSS3'],
