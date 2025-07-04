@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { TypeAnimation } from 'react-type-animation';
 import DecryptedText from './DecryptedText';
@@ -20,7 +20,7 @@ export const Hero = () => {
         },
     };
 
-    const itemVariants = {
+    const itemVariants: Variants = {
         hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,

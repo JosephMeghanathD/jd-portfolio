@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, type Variants } from 'framer-motion';
 import { useState } from 'react';
 import { FaBriefcase, FaGraduationCap, FaChevronDown } from 'react-icons/fa';
 
@@ -79,12 +79,22 @@ export const Journey = () => {
   );
 };
 
+interface TimelineItemProps {
+    item: {
+      type: string;
+      title: string;
+      institution: string;
+      date: string;
+      description: string[];
+    };
+    isLeft: boolean;
+  }
 
-const TimelineItem = ({ item, isLeft }) => {
+const TimelineItem = ({ item, isLeft }: TimelineItemProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { type, title, institution, date, description } = item;
 
-  const cardVariants = {
+  const cardVariants: Variants = {
     hidden: { opacity: 0, x: isLeft ? -100 : 100 },
     visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
   };

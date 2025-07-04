@@ -1,4 +1,4 @@
-import { useEffect, useRef, FC } from "react";
+import { useEffect, useRef, type FC } from "react";
 import * as THREE from "three";
 import {
     BloomEffect,
@@ -804,7 +804,7 @@ class Road {
 
     createPlane(side: number, width: number, isRoad: boolean) {
         const options = this.options;
-        const segments = 100;
+        const segments = width;
         const geometry = new THREE.PlaneGeometry(
             isRoad ? options.roadWidth : options.islandWidth,
             options.length,
