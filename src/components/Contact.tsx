@@ -1,16 +1,16 @@
 import { motion } from 'framer-motion';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { db } from '../config/firebase';
 
+// The IFormInput interface now includes a 'subject' field to match your backend.
 interface IFormInput {
     name: string;
     email: string;
+    subject: string; // Added field
     message: string;
 }
 
 export const Contact = () => {
-    // useForm hook for state management, validation, and submission
+    // React Hook Form setup remains the same, it's excellent for this.
     const {
         register,
         handleSubmit,
@@ -18,25 +18,36 @@ export const Contact = () => {
         reset
     } = useForm<IFormInput>();
 
-    // This function will be called on form submission
+    // The API endpoint for your backend service.
+    const API_URL = 'https://auth-service-1002278726079.us-central1.run.app/api/rs/contact';
+
+    // This new onSubmit function calls your backend API.
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
         try {
-            // Reference the 'contact_messages' collection in Firestore
-            const collectionRef = collection(db, 'contact_messages');
-
-            // Add the form data to Firestore
-            await addDoc(collectionRef, {
-                name: data.name,
-                email: data.email,
-                message: data.message,
-                timestamp: serverTimestamp() // Adds a server-generated timestamp
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // The backend from your other component expects a JSON body.
+                body: JSON.stringify(data), 
             });
 
-            alert('Thank you! Your message has been sent successfully.');
-            reset(); // Clear the form after successful submission
+            if (response.ok) {
+                // The backend responded with a success message.
+                const successText = await response.text();
+                alert(successText || 'Thank you! Your message has been sent successfully.');
+                reset(); // Clear the form.
+            } else {
+                // Handle server-side errors (e.g., validation, server down).
+                const errorText = await response.text();
+                console.error("Server responded with an error:", errorText);
+                alert(`Oops! Something went wrong: ${errorText}`);
+            }
         } catch (error) {
-            console.error("Error writing document: ", error); // Log the actual error
-            alert('Oops! Something went wrong. Please try again later.');
+            // Handle network errors (e.g., user is offline).
+            console.error("Error submitting form: ", error);
+            alert('Could not connect to the server. Please check your internet connection and try again.');
         }
     };
 
@@ -63,25 +74,14 @@ export const Contact = () => {
                 </motion.p>
 
                 {/* 
-          The form is set up for Netlify.
-          - `name="contact"`: Identifies the form.
-          - `data-netlify="true"`: Enables Netlify's form handling.
-          - `data-netlify-honeypot="bot-field"`: A trap for spam bots.
-        */}
+                  The form no longer needs Netlify attributes.
+                  The submission is now handled by JavaScript via the onSubmit function.
+                */}
                 <form
-                    name="contact"
-                    method="POST"
-                    data-netlify="true"
-                    data-netlify-honeypot="bot-field"
                     className="w-full"
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={handleSubmit(onSubmit)} // This triggers our API call logic.
+                    noValidate // Prevents default browser validation.
                 >
-                    {/* This input is required by Netlify to identify the form */}
-                    <input type="hidden" name="form-name" value="contact" />
-                    <p className="hidden">
-                        <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
-                    </p>
-
                     <div className="flex flex-col gap-6">
                         <input
                             {...register("name", { required: "Name is required" })}
@@ -101,6 +101,15 @@ export const Contact = () => {
                             className="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                         />
                         {errors.email && <span className="text-red-500 -mt-4 text-left">{errors.email.message}</span>}
+
+                        {/* --- New Subject Field --- */}
+                        <input
+                            {...register("subject", { required: "Subject is required" })}
+                            type="text"
+                            placeholder="Subject"
+                            className="w-full bg-gray-800 border border-gray-700 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                        />
+                        {errors.subject && <span className="text-red-500 -mt-4 text-left">{errors.subject.message}</span>}
 
                         <textarea
                             {...register("message", { required: "Message is required" })}
