@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 import { useForm, type SubmitHandler } from 'react-hook-form';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
+import { db } from '../config/firebase';
 
 interface IFormInput {
     name: string;
@@ -18,23 +20,22 @@ export const Contact = () => {
 
     // This function will be called on form submission
     const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-        // This is the modern way to submit a form to Netlify with AJAX
-        // to prevent a page reload.
-        const formData = new URLSearchParams();
-        formData.append('form-name', 'contact');
-        Object.keys(data).forEach((key) => {
-            formData.append(key, data[key as keyof IFormInput]);
-          });
-
         try {
-            await fetch('/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formData.toString(),
+            // Reference the 'contact_messages' collection in Firestore
+            const collectionRef = collection(db, 'contact_messages');
+
+            // Add the form data to Firestore
+            await addDoc(collectionRef, {
+                name: data.name,
+                email: data.email,
+                message: data.message,
+                timestamp: serverTimestamp() // Adds a server-generated timestamp
             });
+
             alert('Thank you! Your message has been sent successfully.');
             reset(); // Clear the form after successful submission
         } catch (error) {
+            console.error("Error writing document: ", error); // Log the actual error
             alert('Oops! Something went wrong. Please try again later.');
         }
     };
