@@ -4,6 +4,14 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projectsData = [
   {
+    image: '/projects/ride.png', 
+    title: 'AAD RideShare Application',
+    description: 'A privacy-first, full-stack ride-sharing platform for students and professionals to split costs, reduce emissions, and build community via secure, in-app messaging.',
+    tags: ['React', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Netlify', 'NeonDb'],
+    liveUrl: 'https://jdride.netlify.app/',
+    sourceUrl: 'https://github.com/JoeHitHard/AAD-RideShareApplication',
+  },
+  {
     image: '/projects/flyfish.png', 
     title: 'Fly Fish - Virtual Art Gallery',
     description: 'A virtual art gallery for sustainable living, featuring artisan products and interactive animations with a mobile-first, responsive design.',
@@ -34,7 +42,7 @@ const projectsData = [
     tags: ['JavaScript', 'HTML5', 'CSS3'],
     liveUrl: 'https://josephmeghanathd.github.io/MultiLinetoSingleLine',
     sourceUrl: 'https://github.com/JosephMeghanathD/MultiLinetoSingleLine',
-  },
+  }
 ];
 
 
