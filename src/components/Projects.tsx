@@ -4,6 +4,14 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 
 const projectsData = [
   {
+    image: '/projects/sm.png',
+    title: 'Specialty Marketplace',
+    description: 'A full-stack, microservices-based e-commerce platform featuring product browsing, a shopping cart, user authentication, and order management. Built with React and Spring Boot, and deployed on GCP and Netlify.',
+    tags: ['React', 'Spring Boot', 'Microservices', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Netlify', 'Tailwind CSS'],
+    liveUrl: 'https://specalitymarketplace.netlify.app/',
+    sourceUrl: 'https://github.com/JosephMeghanathD/Specialty-Marketplace',
+  },
+  {
     image: '/projects/ride.png', 
     title: 'AAD RideShare Application',
     description: 'A privacy-first, full-stack ride-sharing platform for students and professionals to split costs, reduce emissions, and build community via secure, in-app messaging.',
