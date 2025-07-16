@@ -12,18 +12,19 @@
   "dependencies": {
     "firebase": "^11.10.0",
     "framer-motion": "^12.23.0",
-    "postprocessing": "^6.37.6",
+    "ogl": "^1.0.11",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.59.0",
     "react-icons": "^5.5.0",
-    "react-type-animation": "^3.2.0",
-    "three": "^0.167.1"
+    "react-scroll": "^1.9.3",
+    "react-type-animation": "^3.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/react-scroll": "^1.8.10",
     "@types/three": "^0.178.0",
     "@vitejs/plugin-react": "^4.5.2",
     "autoprefixer": "^10.4.21",

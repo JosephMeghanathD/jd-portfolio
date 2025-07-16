@@ -3,8 +3,6 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { TypeAnimation } from 'react-type-animation';
 import DecryptedText from './DecryptedText';
 
-
-
 import profilePic from '../assets/me.jpeg';
 
 export const Hero = () => {
@@ -14,7 +12,7 @@ export const Hero = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.3,
+                staggerChildren: 0.1, // A slight stagger for a smoother entry
                 delayChildren: 0.2,
             },
         },
@@ -30,94 +28,118 @@ export const Hero = () => {
     };
 
     return (
-        <motion.div
-            className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 p-8 max-w-5xl mx-auto"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-        >
-            
-            <motion.div variants={itemVariants} className="flex-shrink-0">
-                <img
-                    src={profilePic}
-                    alt="Joseph D"
-                    className="w-56 h-56 md:w-72 md:h-72 rounded-full object-cover border-[6px] border-cyan-400 shadow-xl shadow-cyan-500/40"
-                />
-            </motion.div>
-
-            
-            <div className="flex flex-col items-center md:items-start text-center md:text-left">
-                <motion.p
-                    variants={itemVariants}
-                    className="text-xl md:text-2xl text-gray-300 mb-2"
-                >
-                    Hello, I'm
-                </motion.p>
-                <motion.h1
-                    variants={itemVariants}
-                    className="text-5xl md:text-7xl font-bold text-white mb-4"
-                >
-                    Joseph D
-                </motion.h1>
-
-                <motion.div variants={itemVariants}>
-                    <TypeAnimation
-                        sequence={[
-                            'Full-Stack Developer', 2000,
-                            'Creative Technologist', 2000,
-                            'Lifelong Learner', 2000,
-                        ]}
-                        wrapper="p"
-                        cursor={true}
-                        repeat={Infinity}
-                        className="text-2xl md:text-3xl text-cyan-400 font-semibold mb-6"
+        <section id = "hero" className="min-h-screen flex items-center justify-center p-4 md:p-8">
+            <motion.div 
+                className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24 max-w-6xl mx-auto p-8 md:p-12 rounded-2xl
+                           bg-background-primary/50 backdrop-blur-sm shadow-lg"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+            >
+                <motion.div variants={itemVariants} className="flex-shrink-0">
+                    <img
+                        src={profilePic}
+                        alt="Joseph D"
+                        className="w-56 h-56 md:w-72 md:h-72 rounded-full object-cover border-[6px] border-accent shadow-xl shadow-accent/20 animate-glow"
                     />
                 </motion.div>
 
-                
-                <motion.p
-                    variants={itemVariants}
-                    className="text-xl md:text-2xl text-gray-300 mb-2">
-                    <DecryptedText
-                        text=" I'm a full-stack software engineer who loves to code and always thrives to learn new technologies to build amazing things."
-                    />
-                </motion.p>
-
-                
-                <motion.div
-                    variants={itemVariants}
-                    className="flex items-center gap-6 mt-4"
-                >
-                    <a
-                        href="https://github.com/JosephMeghanathD?tab=repositories"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-block px-8 py-3 text-lg font-bold text-gray-900 bg-cyan-400 rounded-lg transform transition-all duration-300 hover:bg-cyan-300 hover:-translate-y-1"
+                <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-2xl">
+                    <motion.p
+                        variants={itemVariants}
+                        className="text-xl md:text-2xl text-text-secondary mb-2"
                     >
-                        My Works
-                    </a>
+                        {/* "Hello, I'm" now uses the decrypt effect */}
+                        <DecryptedText
+                            text="Hello, I'm"
+                            animateOn="view"
+                            sequential
+                            useOriginalCharsOnly
+                            className="text-text-secondary"
+                            encryptedClassName="text-accent"
+                        />
+                    </motion.p>
+                    <motion.h1
+                        variants={itemVariants}
+                        className="text-5xl md:text-7xl font-bold text-text-primary mb-4"
+                    >
+                        {/* "Joseph D" now uses the decrypt effect */}
+                        <DecryptedText
+                            text="Joseph D"
+                            animateOn="view"
+                            sequential
+                            useOriginalCharsOnly
+                            speed={70}
+                            className="text-text-primary"
+                            encryptedClassName="text-accent"
+                        />
+                    </motion.h1>
 
+                    <motion.div variants={itemVariants}>
+                        <TypeAnimation
+                            sequence={[
+                                'Full-Stack Developer', 2000,
+                                'Creative Technologist', 2000,
+                                'Lifelong Learner', 2000,
+                            ]}
+                            wrapper="p"
+                            cursor={true}
+                            repeat={Infinity}
+                            className="text-2xl md:text-3xl text-accent font-semibold mb-6"
+                        />
+                    </motion.div>
                     
-                    <a
-                        href="https://github.com/JosephMeghanathD" 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="GitHub Profile"
-                        className="text-gray-400 hover:text-cyan-400 transform hover:scale-110 transition-all duration-300"
+                    <motion.p
+                        variants={itemVariants}
+                        className="text-base md:text-lg text-text-secondary mb-8 leading-relaxed">
+                        {/* Updated the paragraph to also be sequential for a cleaner reveal */}
+                        <DecryptedText
+                            text="I'm a full-stack software engineer who loves to code and always thrives to learn new technologies to build amazing things."
+                            animateOn="view"
+                            sequential
+                            useOriginalCharsOnly
+                            speed={20}
+                            className="text-text-secondary"
+                            encryptedClassName="text-accent"
+                        />
+                    </motion.p>
+
+                    <motion.div
+                        variants={itemVariants}
+                        className="flex items-center justify-center md:justify-start gap-6"
                     >
-                        <FaGithub size={40} />
-                    </a>
-                    <a
-                        href="https://linkedin.com" 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn Profile"
-                        className="text-gray-400 hover:text-cyan-400 transform hover:scale-110 transition-all duration-300"
-                    >
-                        <FaLinkedin size={40} />
-                    </a>
-                </motion.div>
-            </div>
-        </motion.div>
+                        <a
+                            href="https://github.com/JosephMeghanathD?tab=repositories"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block px-8 py-3 text-lg font-bold text-background-primary bg-text-primary rounded-lg transform transition-all duration-300 hover:bg-accent hover:text-white dark:hover:text-black hover:-translate-y-1"
+                        >
+                            My Works
+                        </a>
+                        
+                        <div className="flex items-center gap-4">
+                            <a
+                                href="https://github.com/JosephMeghanathD" 
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="GitHub Profile"
+                                className="text-text-secondary hover:text-accent transform hover:scale-110 transition-all duration-300"
+                            >
+                                <FaGithub size={32} />
+                            </a>
+                            <a
+                                href="https://linkedin.com" 
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="LinkedIn Profile"
+                                className="text-text-secondary hover:text-accent transform hover:scale-110 transition-all duration-300"
+                            >
+                                <FaLinkedin size={32} />
+                            </a>
+                        </div>
+                    </motion.div>
+                </div>
+            </motion.div>
+        </section>
     );
 };
