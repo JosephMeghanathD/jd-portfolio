@@ -52,7 +52,7 @@ export const Skills = () => {
     };
 
     return (
-        // The `bg-background-secondary` class has been removed from this section
+       
         <section  id = "skills"  className="py-20 px-4">
             <div className="container mx-auto">
                 <motion.h2
@@ -75,7 +75,7 @@ export const Skills = () => {
                     {skillsData.map((category) => (
                         <motion.div
                             key={category.category}
-                            // The card background remains, creating the "floating" effect
+                           
                             className="bg-background-primary/50 backdrop-blur-sm border border-border-color rounded-lg p-6 shadow-lg"
                             variants={itemVariants}
                         >

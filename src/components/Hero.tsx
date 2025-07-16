@@ -12,7 +12,7 @@ export const Hero = () => {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.1, // A slight stagger for a smoother entry
+                staggerChildren: 0.1,
                 delayChildren: 0.2,
             },
         },

@@ -2,8 +2,8 @@ import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from 'react-icons/fa';
 
 const sidebarVariants = {
-    // Using a percentage for `x` makes the slide-in animation smoother
-    // and more consistent across different screen sizes.
+   
+   
     hidden: { x: "-100%", opacity: 0 },
     visible: {
         x: "0%",
@@ -17,16 +17,16 @@ const sidebarVariants = {
 
 export const SocialSidebar = () => {
     return (
-        // This new parent container is the key to the fix.
-        // - `inset-y-0`: Stretches it to the full height of the viewport.
-        // - `flex items-center`: Vertically centers its direct child.
-        // - `pointer-events-none`: Makes this invisible container non-interactive,
-        //   so it doesn't block clicks on the main page.
+       
+       
+       
+       
+       
         <div className="fixed left-0 inset-y-0 z-40 hidden md:flex items-center pointer-events-none">
             
             <motion.div
-                // The sidebar itself no longer needs any positioning classes (top, transform).
-                // `pointer-events-auto` re-enables clicks for the sidebar and its links.
+               
+               
                 className="pointer-events-auto flex flex-col gap-5 p-4
                            bg-black dark:bg-white 
                            backdrop-blur-sm rounded-r-lg 

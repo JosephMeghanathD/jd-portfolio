@@ -8,7 +8,7 @@ import { Header } from './components/Header';
 import { SocialSidebar } from './components/SocialSidebar';
 import { useTheme } from './hooks/useTheme';
 import Particles from './components/Particles';
-import { ScrollToTopButton } from './components/ScrollToTopButton'; // Assuming you added this
+import { ScrollToTopButton } from './components/ScrollToTopButton';
 
 // Define the color palettes outside the component
 const lightModeParticleColors = ['#000000', '#4b5563', '#6b7280'];
@@ -17,20 +17,20 @@ const darkModeParticleColors = ['#ffffff', '#e5e7eb', '#d1d5db'];
 function App() {
   const { theme } = useTheme();
   
-  // THIS IS THE FIX: Initialize the state with one of the palettes.
-  // The useEffect below will handle keeping it in sync.
+ 
+ 
   const [currentParticleColors, setCurrentParticleColors] = useState(darkModeParticleColors);
 
-  // This useEffect hook will now correctly run whenever the 'theme' changes.
+ 
   useEffect(() => {
-    // When the theme changes, update the particle color state.
-    // This will cause a re-render and pass the new array to the Particles component.
+   
+   
     if (theme === 'dark') {
       setCurrentParticleColors(darkModeParticleColors);
     } else {
       setCurrentParticleColors(lightModeParticleColors);
     }
-  }, [theme]); // The dependency array ensures this runs ONLY when 'theme' changes.
+  }, [theme]);
 
   return (
     <div>

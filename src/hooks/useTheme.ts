@@ -15,7 +15,7 @@ export const useTheme = () => {
                 return 'dark';
             }
         }
-        return 'dark'; // default theme
+        return 'dark';
     });
 
     useEffect(() => {

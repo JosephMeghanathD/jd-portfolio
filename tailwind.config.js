@@ -7,8 +7,8 @@ export default {
   ],
   theme: {
     extend: {
-      // We are defining our theme colors using CSS variables.
-      // This makes it easy to manage light/dark modes from a single CSS file.
+     
+     
       colors: {
         background: {
           primary: 'var(--bg-primary)',

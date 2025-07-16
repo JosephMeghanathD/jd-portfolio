@@ -8,7 +8,7 @@ export const ScrollToTopButton = () => {
     const { scrollY } = useScroll();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
-        // Show button after scrolling down 400px
+       
         if (latest > 400) {
             setIsVisible(true);
         } else {

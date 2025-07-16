@@ -53,8 +53,8 @@ const projectsData = [
   }
 ];
 
-const CARD_WIDTH = 450; // Or your card's width in pixels
-const GAP = 32; // The gap between cards in pixels (gap-8)
+const CARD_WIDTH = 450;
+const GAP = 32;
 
 export const Projects = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -66,7 +66,7 @@ export const Projects = () => {
 
     const interval = setInterval(() => {
       setCurrentIndex((prevIndex) => prevIndex + 1);
-    }, 2500); // Auto-scroll every 2.5 seconds
+    }, 2500);
 
     return () => clearInterval(interval);
   }, [isHovering]);
