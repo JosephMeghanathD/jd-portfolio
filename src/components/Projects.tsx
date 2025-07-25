@@ -4,6 +4,14 @@ import { useState, useEffect, useRef } from 'react';
 
 const projectsData = [
   {
+    "image": "/projects/TP.png",
+    "title": "TaskPilot: AI Microservices To-Do App",
+    "description": "A full-stack, cloud-native to-do application built with a microservice architecture, featuring AI-powered task decomposition using Google's Gemini.",
+    "tags": ["React", "TypeScript", "Spring Boot", "PostgreSQL", "Docker", "JWT", "GCP", "Gemini AI"],
+    "liveUrl": "https://jdtaskpilot.netlify.app/",
+    "sourceUrl": "https://github.com/JosephMeghanathD/TodoPilot"
+  },
+  {
     image: '/projects/sm.png',
     title: 'Specialty Marketplace',
     description: 'A full-stack, microservices-based e-commerce platform featuring product browsing, a shopping cart, user authentication, and order management.',
@@ -79,8 +87,18 @@ export const Projects = () => {
   
   const centeredIndex = projectsData.length + (currentIndex % projectsData.length);
 
+  // --- NEW ---
+  // This handler function calculates the difference and updates the state.
+  const handleCardClick = (clickedDisplayIndex: number) => {
+    if (clickedDisplayIndex === centeredIndex) return; // Do nothing if the centered card is clicked
+
+    const diff = clickedDisplayIndex - centeredIndex;
+    setCurrentIndex(currentIndex + diff);
+  };
+  // --- END NEW ---
+
   return (
-    <section  id="projects"  className="py-20 overflow-hidden">
+    <section id="projects" className="py-20 overflow-hidden">
       <div className="container mx-auto flex flex-col items-center">
         <motion.h2
           className="text-4xl md:text-5xl font-bold text-center mb-4 text-text-primary"
@@ -91,6 +109,7 @@ export const Projects = () => {
         >
           My Projects
         </motion.h2>
+        <br/><br/>
 
         <div
           className="w-full relative h-[520px] md:h-[550px]"
@@ -106,7 +125,11 @@ export const Projects = () => {
             {displayProjects.map((project, i) => (
               <motion.div
                 key={`${project.title}-${i}`}
-                className="w-[90vw] md:w-[450px] flex-shrink-0 bg-background-primary/50 backdrop-blur-sm border border-border-color rounded-lg overflow-hidden shadow-lg"
+                // --- MODIFIED ---
+                // Added an onClick handler and a conditional cursor style for better UX.
+                className={`w-[90vw] md:w-[450px] flex-shrink-0 bg-background-primary/50 backdrop-blur-sm border border-border-color rounded-lg overflow-hidden shadow-lg ${i !== centeredIndex ? 'cursor-pointer' : ''}`}
+                onClick={() => handleCardClick(i)}
+                // --- END MODIFIED ---
                 animate={{
                   scale: i === centeredIndex ? 1.05 : 0.9,
                   opacity: i === centeredIndex ? 1 : 0.5,
