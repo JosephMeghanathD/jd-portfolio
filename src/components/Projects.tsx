@@ -3,7 +3,23 @@ import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { useState, useEffect, useRef } from 'react';
 
 const projectsData = [
-  {
+    {
+        image: '/projects/record.png',
+        title: 'RecordRules v1.0.4',
+        description: 'A lightweight Java library for enforcing business logic and data integrity within Java Records. Features a fluent API, record-first design, and comprehensive error collection.',
+        tags: ['Java', 'Maven', 'Validation', 'Records', 'Fluent API', 'Zero Dependencies'],
+        liveUrl: 'https://mvnrepository.com/artifact/io.github.josephmeghanathd/record-rules',
+        sourceUrl: 'https://github.com/JosephMeghanathD/record-rules',
+    },
+    {
+        image: '/projects/nano.png',
+        title: 'NanoRetry',
+        description: 'A high-performance, lightweight Java library for retrying operations in the Virtual Thread era (JDK 21+). Supports fluent API, multiple backoff strategies, and dual-layer timeouts.',
+        tags: ['Java', 'Maven', 'Virtual Threads', 'Retry', 'Concurrency', 'Zero Dependencies'],
+        liveUrl: 'https://mvnrepository.com/artifact/io.github.josephmeghanathd/nano-retry',
+        sourceUrl: 'https://github.com/JosephMeghanathD/NanoRetry',
+    },
+    {
     "image": "/projects/TP.png",
     "title": "TaskPilot: AI Microservices To-Do App",
     "description": "A full-stack, cloud-native to-do application built with a microservice architecture, featuring AI-powered task decomposition using Google's Gemini.",
@@ -84,7 +100,7 @@ export const Projects = () => {
     ...projectsData,
     ...projectsData
   ];
-  
+
   const centeredIndex = projectsData.length + (currentIndex % projectsData.length);
 
   // --- NEW ---
