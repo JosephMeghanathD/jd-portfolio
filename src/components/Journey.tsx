@@ -1,16 +1,12 @@
 import {
   motion,
   useScroll,
-  useMotionValueEvent,
   AnimatePresence,
   type Variants,
-  type MotionProps,
-  useMotionValue,
-  useSpring,
-  useTransform,
 } from 'framer-motion';
-import { useState, useRef, useEffect, type SVGProps, type ElementType } from 'react';
+import { useState, useRef, useEffect, type ElementType } from 'react';
 import { FaBriefcase, FaGraduationCap, FaChevronDown } from 'react-icons/fa';
+import { TiltCard } from './TiltCard';
 
 
 const journeyData = [
@@ -98,29 +94,10 @@ const journeyData = [
 ];
 
 
-const StickMan = (props: { scrollYProgress: any } & MotionProps & SVGProps<SVGSVGElement>) => {
-  const frame = useTransform(props.scrollYProgress, [0, 1], [0, 4]);
-  const legOpacity = (offset: number) => useTransform(frame, v => (Math.floor(v) % 2 === offset ? 1 : 0));
-
-  return (
-      <motion.svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-          <circle cx="12" cy="6" r="2" />
-          <path d="M12 8v7m-3 0h6" />
-          <motion.path d="M12 15l-3 4" style={{ opacity: legOpacity(0) }} />
-          <motion.path d="M12 15l3 4" style={{ opacity: legOpacity(1) }} />
-      </motion.svg>
-  );
-};
-
 
 export const Journey = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [pathD, setPathD] = useState('');
-
-  const stickManX = useMotionValue(0);
-  const stickManY = useMotionValue(0);
-  const smoothX = useSpring(stickManX, { stiffness: 500, damping: 50, mass: 0.5 });
-  const smoothY = useSpring(stickManY, { stiffness: 500, damping: 50, mass: 0.5 });
 
   const { scrollYProgress } = useScroll({
       target: timelineRef,
@@ -139,16 +116,6 @@ export const Journey = () => {
       if (timelineRef.current) resizeObserver.observe(timelineRef.current);
       return () => resizeObserver.disconnect();
   }, []);
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-      if (timelineRef.current) {
-          const { width, height } = timelineRef.current.getBoundingClientRect();
-          const centerX = width / 2;
-          const newY = latest * height;
-          stickManX.set(centerX);
-          stickManY.set(newY);
-      }
-  });
 
   return (
       <section id="journey" className="py-24 px-6 sm:px-10 lg:px-20 xl:px-28">
@@ -172,10 +139,6 @@ export const Journey = () => {
                       </svg>
                       <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-0.5 bg-accent/30 md:hidden" />
                   </div>
-
-                  <motion.div className="absolute hidden md:block" style={{ top: smoothY, left: smoothX, x: "-50%", y: "-50%", opacity: scrollYProgress }}>
-                      <StickMan scrollYProgress={scrollYProgress} className="text-accent"/>
-                  </motion.div>
 
                   <div className="space-y-12">
                       {journeyData.map((item, index) => (
@@ -215,71 +178,76 @@ const TimelineItem = ({ item, isLeft }: TimelineItemProps) => {
 
   const content = (
       <motion.div
-          className={`relative p-6 rounded-xl shadow-lg w-full overflow-hidden
-            ${current
-              ? 'bg-background-primary/60 backdrop-blur-sm border border-accent/50 shadow-accent/10'
-              : 'bg-background-primary/50 backdrop-blur-sm border border-border-color'
-            }`}
           variants={cardVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          whileHover={{ scale: 1.02, y: -2 }}
+          whileHover={{ y: -3 }}
           transition={{ type: 'spring', stiffness: 400, damping: 25 }}
       >
-          {current && (
-              <div className="absolute inset-0 rounded-xl pointer-events-none" style={{ background: 'linear-gradient(135deg, rgba(34,211,238,0.06) 0%, transparent 60%)' }} />
-          )}
+          <TiltCard intensity={6} className="rounded-xl">
+              <div className={`relative p-6 rounded-xl overflow-hidden
+                ${current
+                  ? 'bg-glass-bg backdrop-blur-[20px] border border-accent/40 shadow-xl shadow-accent/10'
+                  : 'bg-glass-bg backdrop-blur-[20px] border border-glass-border'
+                }`}
+              >
+                  {current && (
+                      <div className="absolute inset-0 rounded-xl pointer-events-none"
+                           style={{ background: 'linear-gradient(135deg, rgba(34,211,238,0.08) 0%, transparent 60%)' }} />
+                  )}
 
-          <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
-              <span className={`inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border
-                ${type === 'work'
-                  ? 'bg-accent/10 text-accent border-accent/20'
-                  : 'bg-violet-500/10 text-violet-400 border-violet-500/20'
-                }`}>
-                  {type === 'work' ? 'Experience' : 'Education'}
-              </span>
-              {current && (
-                  <span className="inline-flex items-center gap-1.5 bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full border border-accent/30">
-                      <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-                      CURRENT
-                  </span>
-              )}
-          </div>
+                  <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
+                      <span className={`inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border
+                        ${type === 'work'
+                          ? 'bg-accent/10 text-accent border-accent/20'
+                          : 'bg-violet-500/10 text-violet-400 border-violet-500/20'
+                        }`}>
+                          {type === 'work' ? 'Experience' : 'Education'}
+                      </span>
+                      {current && (
+                          <span className="inline-flex items-center gap-1.5 bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full border border-accent/30">
+                              <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
+                              CURRENT
+                          </span>
+                      )}
+                  </div>
 
-          <p className="text-accent text-sm mb-1 font-semibold">{date}</p>
-          <h3 className={`text-xl font-bold mb-1 ${current ? 'text-text-primary' : 'text-text-primary'}`}>{title}</h3>
-          <p className="text-md font-semibold text-text-secondary mb-4">{institution}</p>
+                  <p className="text-accent text-sm mb-1 font-semibold">{date}</p>
+                  <h3 className="text-xl font-bold mb-1 text-text-primary">{title}</h3>
+                  <p className="text-md font-semibold text-text-secondary mb-4">{institution}</p>
 
-          <AnimatePresence>
-              {isExpanded && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className="overflow-hidden"
+                  <AnimatePresence>
+                      {isExpanded && (
+                          <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            className="overflow-hidden"
+                          >
+                              <ul className="space-y-2.5 mt-2">
+                                  {details.map((point, i) => (
+                                      <li key={i} className="flex items-start gap-2.5 text-text-secondary text-sm leading-relaxed">
+                                          <span className="text-accent mt-1 flex-shrink-0 text-xs">▸</span>
+                                          {point}
+                                      </li>
+                                  ))}
+                              </ul>
+                          </motion.div>
+                      )}
+                  </AnimatePresence>
+
+                  <button
+                    onClick={() => setIsExpanded(!isExpanded)}
+                    className="mt-4 flex items-center gap-2 text-accent font-semibold hover:text-accent-hover transition-colors text-sm"
                   >
-                      <ul className="space-y-2.5 mt-2">
-                          {details.map((point, i) => (
-                              <li key={i} className="flex items-start gap-2.5 text-text-secondary text-sm leading-relaxed">
-                                  <span className="text-accent mt-1 flex-shrink-0 text-xs">▸</span>
-                                  {point}
-                              </li>
-                          ))}
-                      </ul>
-                  </motion.div>
-              )}
-          </AnimatePresence>
-
-          <button
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-4 flex items-center gap-2 text-accent font-semibold hover:text-accent-hover transition-colors text-sm"
-          >
-              {isExpanded ? 'View Less' : 'View More'}
-              <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                <FaChevronDown size={12} />
-              </motion.div>
-          </button>
+                      {isExpanded ? 'View Less' : 'View More'}
+                      <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                        <FaChevronDown size={12} />
+                      </motion.div>
+                  </button>
+              </div>
+          </TiltCard>
       </motion.div>
   );
 

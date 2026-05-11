@@ -1,4 +1,5 @@
 import { motion, type Variants } from 'framer-motion';
+import { TiltCard } from './TiltCard';
 
 const skillsData = [
     {
@@ -57,7 +58,6 @@ export const Skills = () => {
         <section id="skills" className="py-24 px-6 sm:px-10 lg:px-20 xl:px-28">
             <div className="max-w-7xl mx-auto">
 
-                {/* Section header */}
                 <motion.div
                     className="mb-14"
                     initial={{ opacity: 0, y: -20 }}
@@ -82,27 +82,31 @@ export const Skills = () => {
                         <motion.div
                             key={category.category}
                             variants={itemVariants}
-                            className="group p-6 rounded-2xl border border-border-color bg-background-elevated/40 backdrop-blur-sm hover:border-accent/30 transition-colors duration-300"
+                            className="h-full"
                         >
-                            <div className="flex items-center gap-3 mb-4">
-                                <span className="text-text-muted text-xs font-mono">
-                                    {String(idx + 1).padStart(2, '0')}
-                                </span>
-                                <div className="flex-1 h-px bg-border-color" />
-                            </div>
-                            <h3 className="text-base font-semibold text-text-primary mb-4 group-hover:text-accent transition-colors duration-300">
-                                {category.category}
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {category.skills.map((skill) => (
-                                    <span
-                                        key={skill}
-                                        className="bg-background-secondary border border-border-color text-text-secondary text-xs font-medium px-3 py-1.5 rounded-lg"
-                                    >
-                                        {skill}
-                                    </span>
-                                ))}
-                            </div>
+                            <TiltCard intensity={8} className="rounded-2xl">
+                                <div className="group p-6 rounded-2xl h-full bg-glass-bg backdrop-blur-[20px] border border-glass-border hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5 transition-all duration-300">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <span className="text-text-muted text-xs font-mono">
+                                            {String(idx + 1).padStart(2, '0')}
+                                        </span>
+                                        <div className="flex-1 h-px bg-border-color" />
+                                    </div>
+                                    <h3 className="text-base font-semibold text-text-primary mb-4 group-hover:text-accent transition-colors duration-300">
+                                        {category.category}
+                                    </h3>
+                                    <div className="flex flex-wrap gap-2">
+                                        {category.skills.map((skill) => (
+                                            <span
+                                                key={skill}
+                                                className="bg-background-secondary border border-border-color text-text-secondary text-xs font-medium px-3 py-1.5 rounded-lg"
+                                            >
+                                                {skill}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </div>
+                            </TiltCard>
                         </motion.div>
                     ))}
                 </motion.div>

@@ -13,11 +13,12 @@ export const ScrollToTopButton = () => {
 
     return (
         <motion.button
-            className="fixed bottom-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-background-elevated border border-border-color text-text-muted hover:text-accent hover:border-accent/40 shadow-lg transition-colors"
+            className="fixed bottom-8 right-8 z-50 w-11 h-11 flex items-center justify-center rounded-full bg-glass-bg backdrop-blur-[20px] border border-glass-border text-text-secondary hover:text-accent hover:border-accent/30 transition-all"
+            style={{ boxShadow: '0 0 20px rgba(34,211,238,0.08), 0 4px 20px rgba(0,0,0,0.3)' }}
             onClick={() => scroll.scrollToTop({ duration: 500, smooth: true })}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: isVisible ? 1 : 0, opacity: isVisible ? 1 : 0 }}
-            whileHover={{ y: -2 }}
+            whileHover={{ y: -3, boxShadow: '0 0 30px rgba(34,211,238,0.2), 0 8px 24px rgba(0,0,0,0.3)' }}
             whileTap={{ scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             aria-label="Scroll to top"

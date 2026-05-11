@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { FaEnvelope, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { TiltCard } from './TiltCard';
 
 interface IFormInput {
     name: string;
@@ -83,7 +84,7 @@ export const Contact = () => {
                             Drop a message and I'll get back to you.
                         </p>
 
-                        <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-4">
                             {contactLinks.map(({ icon: Icon, label, href }) => (
                                 <a
                                     key={href}
@@ -92,7 +93,7 @@ export const Contact = () => {
                                     rel="noopener noreferrer"
                                     className="group flex items-center gap-4"
                                 >
-                                    <div className="w-10 h-10 rounded-xl bg-background-elevated border border-border-color flex items-center justify-center text-text-muted group-hover:text-accent group-hover:border-accent/30 transition-all duration-300">
+                                    <div className="w-11 h-11 rounded-xl bg-glass-bg backdrop-blur-[20px] border border-glass-border flex items-center justify-center text-text-muted group-hover:text-accent group-hover:border-accent/30 group-hover:shadow-md group-hover:shadow-accent/10 transition-all duration-300">
                                         <Icon size={16} />
                                     </div>
                                     <span className="text-sm text-text-secondary group-hover:text-accent transition-colors duration-300 font-medium">
@@ -103,79 +104,82 @@ export const Contact = () => {
                         </div>
                     </motion.div>
 
-                    {/* Right: Form */}
-                    <motion.form
-                        onSubmit={handleSubmit(onSubmit)}
-                        noValidate
-                        className="flex flex-col gap-4"
+                    {/* Right: Form in glass TiltCard */}
+                    <motion.div
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <input
-                                    {...register('name', { required: 'Name is required' })}
-                                    type="text"
-                                    placeholder="Your Name"
-                                    className={inputClass}
-                                />
-                                {errors.name && (
-                                    <span className="text-red-400 text-xs mt-1.5 block">{errors.name.message}</span>
-                                )}
+                        <TiltCard intensity={5} className="rounded-2xl">
+                            <div className="bg-glass-bg backdrop-blur-[20px] border border-glass-border rounded-2xl p-8">
+                                <form onSubmit={handleSubmit(onSubmit)} noValidate className="flex flex-col gap-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <input
+                                                {...register('name', { required: 'Name is required' })}
+                                                type="text"
+                                                placeholder="Your Name"
+                                                className={inputClass}
+                                            />
+                                            {errors.name && (
+                                                <span className="text-red-400 text-xs mt-1.5 block">{errors.name.message}</span>
+                                            )}
+                                        </div>
+                                        <div>
+                                            <input
+                                                {...register('email', {
+                                                    required: 'Email is required',
+                                                    pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' },
+                                                })}
+                                                type="email"
+                                                placeholder="Your Email"
+                                                className={inputClass}
+                                            />
+                                            {errors.email && (
+                                                <span className="text-red-400 text-xs mt-1.5 block">{errors.email.message}</span>
+                                            )}
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <input
+                                            {...register('subject', { required: 'Subject is required' })}
+                                            type="text"
+                                            placeholder="Subject"
+                                            className={inputClass}
+                                        />
+                                        {errors.subject && (
+                                            <span className="text-red-400 text-xs mt-1.5 block">{errors.subject.message}</span>
+                                        )}
+                                    </div>
+
+                                    <div>
+                                        <textarea
+                                            {...register('message', { required: 'Message is required' })}
+                                            placeholder="Your Message"
+                                            rows={6}
+                                            className={inputClass + ' resize-none'}
+                                        />
+                                        {errors.message && (
+                                            <span className="text-red-400 text-xs mt-1.5 block">{errors.message.message}</span>
+                                        )}
+                                    </div>
+
+                                    <motion.button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-full bg-accent text-[#09090B] font-bold py-4 rounded-xl text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-accent/20"
+                                        whileHover={{ y: -2, boxShadow: '0 20px 40px rgba(34,211,238,0.3)' }}
+                                        whileTap={{ scale: 0.98 }}
+                                        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                                    >
+                                        {isSubmitting ? 'Sending...' : 'Send Message'}
+                                    </motion.button>
+                                </form>
                             </div>
-                            <div>
-                                <input
-                                    {...register('email', {
-                                        required: 'Email is required',
-                                        pattern: { value: /^\S+@\S+$/i, message: 'Invalid email address' },
-                                    })}
-                                    type="email"
-                                    placeholder="Your Email"
-                                    className={inputClass}
-                                />
-                                {errors.email && (
-                                    <span className="text-red-400 text-xs mt-1.5 block">{errors.email.message}</span>
-                                )}
-                            </div>
-                        </div>
-
-                        <div>
-                            <input
-                                {...register('subject', { required: 'Subject is required' })}
-                                type="text"
-                                placeholder="Subject"
-                                className={inputClass}
-                            />
-                            {errors.subject && (
-                                <span className="text-red-400 text-xs mt-1.5 block">{errors.subject.message}</span>
-                            )}
-                        </div>
-
-                        <div>
-                            <textarea
-                                {...register('message', { required: 'Message is required' })}
-                                placeholder="Your Message"
-                                rows={6}
-                                className={inputClass + ' resize-none'}
-                            />
-                            {errors.message && (
-                                <span className="text-red-400 text-xs mt-1.5 block">{errors.message.message}</span>
-                            )}
-                        </div>
-
-                        <motion.button
-                            type="submit"
-                            disabled={isSubmitting}
-                            className="w-full bg-accent text-[#09090B] font-bold py-4 rounded-xl text-sm tracking-wide disabled:opacity-50 disabled:cursor-not-allowed"
-                            whileHover={{ y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                        >
-                            {isSubmitting ? 'Sending...' : 'Send Message'}
-                        </motion.button>
-                    </motion.form>
+                        </TiltCard>
+                    </motion.div>
                 </div>
             </div>
         </section>

@@ -20,193 +20,205 @@ const projectsData = [
         sourceUrl: 'https://github.com/JosephMeghanathD/NanoRetry',
     },
     {
-    "image": "/projects/TP.png",
-    "title": "TaskPilot: AI Microservices To-Do App",
-    "description": "A full-stack, cloud-native to-do application built with a microservice architecture, featuring AI-powered task decomposition using Google's Gemini.",
-    "tags": ["React", "TypeScript", "Spring Boot", "PostgreSQL", "Docker", "JWT", "GCP", "Gemini AI"],
-    "liveUrl": "https://jdtaskpilot.netlify.app/",
-    "sourceUrl": "https://github.com/JosephMeghanathD/TodoPilot"
-  },
-  {
-    image: '/projects/sm.png',
-    title: 'Specialty Marketplace',
-    description: 'A full-stack, microservices-based e-commerce platform featuring product browsing, a shopping cart, user authentication, and order management.',
-    tags: ['React', 'Spring Boot', 'Microservices', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Netlify'],
-    liveUrl: 'https://specalitymarketplace.netlify.app/',
-    sourceUrl: 'https://github.com/JosephMeghanathD/Specialty-Marketplace',
-  },
-  {
-    image: '/projects/ride.png',
-    title: 'AAD RideShare Application',
-    description: 'A privacy-first, full-stack ride-sharing platform for students and professionals to split costs, reduce emissions, and build community.',
-    tags: ['React', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Netlify'],
-    liveUrl: 'https://jdride.netlify.app/',
-    sourceUrl: 'https://github.com/JoeHitHard/AAD-RideShareApplication',
-  },
-  {
-    image: '/projects/flyfish.png',
-    title: 'Fly Fish - Virtual Art Gallery',
-    description: 'A virtual art gallery for sustainable living, featuring artisan products and interactive animations with a mobile-first, responsive design.',
-    tags: ['React', 'Netlify', 'CSS Grid', 'Flexbox'],
-    liveUrl: 'https://flyfish.netlify.app/',
-    sourceUrl: 'https://github.com/JosephMeghanathD/fly-fish',
-  },
-  {
-    image: '/projects/sudoku.png',
-    title: 'Interactive Sudoku Game',
-    description: 'A classic logic-based Sudoku puzzle game built with vanilla JavaScript, featuring a clean UI and validation logic.',
-    tags: ['JavaScript', 'HTML5', 'CSS3'],
-    liveUrl: 'https://josephmeghanathd.github.io/sudoku',
-    sourceUrl: 'https://github.com/JosephMeghanathD/sudoku',
-  },
-  {
-    image: '/projects/xo.png',
-    title: 'Tic-Tac-Toe (XO)',
-    description: 'The classic game of Tic-Tac-Toe. A simple yet fun project to demonstrate game state management and win-condition logic.',
-    tags: ['JavaScript', 'HTML5', 'CSS3'],
-    liveUrl: 'https://josephmeghanathd.github.io/XO',
-    sourceUrl: 'https://github.com/JosephMeghanathD/XO',
-  },
-  {
-    image: '/projects/multi.png',
-    title: 'Multi-Line to Single-Line Tool',
-    description: 'A handy browser utility to convert multi-line text blocks into a single continuous line, useful for various data formatting tasks.',
-    tags: ['JavaScript', 'HTML5', 'CSS3'],
-    liveUrl: 'https://josephmeghanathd.github.io/MultiLinetoSingleLine',
-    sourceUrl: 'https://github.com/JosephMeghanathD/MultiLinetoSingleLine',
-  }
+        image: '/projects/TP.png',
+        title: 'TaskPilot: AI Microservices To-Do App',
+        description: 'A full-stack, cloud-native to-do application built with a microservice architecture, featuring AI-powered task decomposition using Google\'s Gemini.',
+        tags: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Gemini AI'],
+        liveUrl: 'https://jdtaskpilot.netlify.app/',
+        sourceUrl: 'https://github.com/JosephMeghanathD/TodoPilot',
+    },
+    {
+        image: '/projects/sm.png',
+        title: 'Specialty Marketplace',
+        description: 'A full-stack, microservices-based e-commerce platform featuring product browsing, a shopping cart, user authentication, and order management.',
+        tags: ['React', 'Spring Boot', 'Microservices', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Netlify'],
+        liveUrl: 'https://specalitymarketplace.netlify.app/',
+        sourceUrl: 'https://github.com/JosephMeghanathD/Specialty-Marketplace',
+    },
+    {
+        image: '/projects/ride.png',
+        title: 'AAD RideShare Application',
+        description: 'A privacy-first, full-stack ride-sharing platform for students and professionals to split costs, reduce emissions, and build community.',
+        tags: ['React', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Netlify'],
+        liveUrl: 'https://jdride.netlify.app/',
+        sourceUrl: 'https://github.com/JoeHitHard/AAD-RideShareApplication',
+    },
+    {
+        image: '/projects/flyfish.png',
+        title: 'Fly Fish - Virtual Art Gallery',
+        description: 'A virtual art gallery for sustainable living, featuring artisan products and interactive animations with a mobile-first, responsive design.',
+        tags: ['React', 'Netlify', 'CSS Grid', 'Flexbox'],
+        liveUrl: 'https://flyfish.netlify.app/',
+        sourceUrl: 'https://github.com/JosephMeghanathD/fly-fish',
+    },
+    {
+        image: '/projects/sudoku.png',
+        title: 'Interactive Sudoku Game',
+        description: 'A classic logic-based Sudoku puzzle game built with vanilla JavaScript, featuring a clean UI and validation logic.',
+        tags: ['JavaScript', 'HTML5', 'CSS3'],
+        liveUrl: 'https://josephmeghanathd.github.io/sudoku',
+        sourceUrl: 'https://github.com/JosephMeghanathD/sudoku',
+    },
+    {
+        image: '/projects/xo.png',
+        title: 'Tic-Tac-Toe (XO)',
+        description: 'The classic game of Tic-Tac-Toe. A simple yet fun project to demonstrate game state management and win-condition logic.',
+        tags: ['JavaScript', 'HTML5', 'CSS3'],
+        liveUrl: 'https://josephmeghanathd.github.io/XO',
+        sourceUrl: 'https://github.com/JosephMeghanathD/XO',
+    },
+    {
+        image: '/projects/multi.png',
+        title: 'Multi-Line to Single-Line Tool',
+        description: 'A handy browser utility to convert multi-line text blocks into a single continuous line, useful for various data formatting tasks.',
+        tags: ['JavaScript', 'HTML5', 'CSS3'],
+        liveUrl: 'https://josephmeghanathd.github.io/MultiLinetoSingleLine',
+        sourceUrl: 'https://github.com/JosephMeghanathD/MultiLinetoSingleLine',
+    },
 ];
 
 const CARD_WIDTH = 450;
 const GAP = 32;
 
 export const Projects = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isHovering, setIsHovering] = useState(false);
-  const carouselRef = useRef<HTMLDivElement>(null);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isHovering, setIsHovering] = useState(false);
+    const carouselRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isHovering) return;
+    useEffect(() => {
+        if (isHovering) return;
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-    }, 2500);
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => prevIndex + 1);
+        }, 2500);
 
-    return () => clearInterval(interval);
-  }, [isHovering]);
+        return () => clearInterval(interval);
+    }, [isHovering]);
 
-  const displayProjects = [
-    ...projectsData,
-    ...projectsData,
-    ...projectsData
-  ];
+    const displayProjects = [
+        ...projectsData,
+        ...projectsData,
+        ...projectsData,
+    ];
 
-  const centeredIndex = projectsData.length + (currentIndex % projectsData.length);
+    const centeredIndex = projectsData.length + (currentIndex % projectsData.length);
 
-  // --- NEW ---
-  // This handler function calculates the difference and updates the state.
-  const handleCardClick = (clickedDisplayIndex: number) => {
-    if (clickedDisplayIndex === centeredIndex) return; // Do nothing if the centered card is clicked
+    const handleCardClick = (clickedDisplayIndex: number) => {
+        if (clickedDisplayIndex === centeredIndex) return;
+        const diff = clickedDisplayIndex - centeredIndex;
+        setCurrentIndex(currentIndex + diff);
+    };
 
-    const diff = clickedDisplayIndex - centeredIndex;
-    setCurrentIndex(currentIndex + diff);
-  };
-  // --- END NEW ---
+    return (
+        <section id="projects" className="py-24 overflow-hidden">
+            <div className="flex flex-col items-center">
+                <motion.div
+                    className="mb-12 w-full px-6 sm:px-10 lg:px-20 xl:px-28 max-w-7xl mx-auto"
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-2">03 / Projects</p>
+                    <h2 className="text-4xl md:text-5xl font-bold text-text-primary">My Projects</h2>
+                </motion.div>
 
-  return (
-    <section id="projects" className="py-24 overflow-hidden">
-      <div className="flex flex-col items-center">
-        <motion.div
-          className="mb-12 w-full px-6 sm:px-10 lg:px-20 xl:px-28 max-w-7xl mx-auto"
-          initial={{ opacity: 0, y: -20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-2">03 / Projects</p>
-          <h2 className="text-4xl md:text-5xl font-bold text-text-primary">My Projects</h2>
-        </motion.div>
-
-        <div
-          className="w-full relative h-[520px] md:h-[550px]"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
-        >
-          <motion.div
-            ref={carouselRef}
-            className="absolute left-1/2 flex gap-8"
-            animate={{ x: `calc(-${centeredIndex * (CARD_WIDTH + GAP)}px - ${CARD_WIDTH / 2}px)` }}
-            transition={{ type: 'spring', stiffness: 200, damping: 40 }}
-          >
-            {displayProjects.map((project, i) => (
-              <motion.div
-                key={`${project.title}-${i}`}
-                // --- MODIFIED ---
-                // Added an onClick handler and a conditional cursor style for better UX.
-                className={`w-[90vw] md:w-[450px] flex-shrink-0 bg-background-elevated/60 backdrop-blur-sm border border-border-color rounded-2xl overflow-hidden shadow-2xl shadow-black/20 ${i !== centeredIndex ? 'cursor-pointer' : ''}`}
-                onClick={() => handleCardClick(i)}
-                // --- END MODIFIED ---
-                animate={{
-                  scale: i === centeredIndex ? 1.05 : 0.9,
-                  opacity: i === centeredIndex ? 1 : 0.5,
-                  filter: i === centeredIndex ? 'blur(0px)' : 'blur(4px)',
-                }}
-                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              >
-                <img src={project.image} alt={project.title} className="w-full h-56 object-cover" />
-                <div className="p-6 flex flex-col h-[calc(100%-14rem)]">
-                  <h3 className="text-2xl font-bold text-text-primary mb-2">{project.title}</h3>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="bg-accent/10 text-accent text-xs font-semibold px-2.5 py-1 rounded-full border border-accent/20">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="text-text-secondary mb-6 flex-grow">{project.description}</p>
-                  <div className="flex items-center justify-start gap-4 mt-auto">
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-accent font-semibold hover:text-accent-hover transition-colors"
+                <div
+                    className="w-full relative h-[520px] md:h-[550px]"
+                    style={{ perspective: '2000px' }}
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                >
+                    <motion.div
+                        ref={carouselRef}
+                        className="absolute left-1/2 flex gap-8"
+                        style={{ transformStyle: 'preserve-3d' }}
+                        animate={{ x: `calc(-${centeredIndex * (CARD_WIDTH + GAP)}px - ${CARD_WIDTH / 2}px)` }}
+                        transition={{ type: 'spring', stiffness: 200, damping: 40 }}
                     >
-                      <FaExternalLinkAlt /> Live Demo
-                    </a>
-                    <a
-                      href={project.sourceUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 text-text-secondary font-semibold hover:text-text-primary transition-colors"
-                    >
-                      <FaGithub /> Source
-                    </a>
-                  </div>
+                        {displayProjects.map((project, i) => {
+                            const distance = i - centeredIndex;
+                            const rotateY = Math.max(-22, Math.min(22, distance * 9));
+                            const isCentered = i === centeredIndex;
+
+                            return (
+                                <motion.div
+                                    key={`${project.title}-${i}`}
+                                    className={`w-[90vw] md:w-[450px] flex-shrink-0 rounded-2xl overflow-hidden shadow-2xl ${!isCentered ? 'cursor-pointer' : ''}`}
+                                    style={{
+                                        background: isCentered
+                                            ? 'var(--glass-bg)'
+                                            : 'var(--bg-elevated)',
+                                        backdropFilter: isCentered ? 'blur(20px)' : 'none',
+                                        WebkitBackdropFilter: isCentered ? 'blur(20px)' : 'none',
+                                    }}
+                                    onClick={() => handleCardClick(i)}
+                                    animate={{
+                                        scale: isCentered ? 1.05 : 0.88,
+                                        opacity: isCentered ? 1 : 0.45,
+                                        filter: isCentered ? 'blur(0px)' : 'blur(3px)',
+                                        rotateY,
+                                        borderColor: isCentered ? 'rgba(34,211,238,0.25)' : 'var(--glass-border)',
+                                    }}
+                                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                                >
+                                    <div className={`border rounded-2xl overflow-hidden h-full ${isCentered ? 'border-accent/20 shadow-xl shadow-accent/10' : 'border-border-color'}`}>
+                                        <img src={project.image} alt={project.title} className="w-full h-56 object-cover" />
+                                        <div className="p-6 flex flex-col h-[calc(100%-14rem)]">
+                                            <h3 className="text-2xl font-bold text-text-primary mb-2">{project.title}</h3>
+                                            <div className="flex flex-wrap gap-2 mb-4">
+                                                {project.tags.map(tag => (
+                                                    <span key={tag} className="bg-accent/10 text-accent text-xs font-semibold px-2.5 py-1 rounded-full border border-accent/20">
+                                                        {tag}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                            <p className="text-text-secondary mb-6 flex-grow">{project.description}</p>
+                                            <div className="flex items-center justify-start gap-4 mt-auto">
+                                                <a
+                                                    href={project.liveUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-2 text-accent font-semibold hover:text-accent-hover transition-colors"
+                                                >
+                                                    <FaExternalLinkAlt /> Live Demo
+                                                </a>
+                                                <a
+                                                    href={project.sourceUrl}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="flex items-center gap-2 text-text-secondary font-semibold hover:text-text-primary transition-colors"
+                                                >
+                                                    <FaGithub /> Source
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </motion.div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
 
-        {/* Nav dots */}
-        <div className="flex items-center gap-2 mt-6">
-          {projectsData.map((_, i) => {
-            const active = i === currentIndex % projectsData.length;
-            return (
-              <button
-                key={i}
-                onClick={() => setCurrentIndex(projectsData.length + i)}
-                aria-label={`Go to project ${i + 1}`}
-                className={`rounded-full transition-all duration-300 ${
-                  active
-                    ? 'w-6 h-2 bg-accent'
-                    : 'w-2 h-2 bg-border-color hover:bg-text-muted'
-                }`}
-              />
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
+                {/* Nav dots */}
+                <div className="flex items-center gap-2 mt-6">
+                    {projectsData.map((_, i) => {
+                        const active = i === currentIndex % projectsData.length;
+                        return (
+                            <button
+                                key={i}
+                                onClick={() => setCurrentIndex(projectsData.length + i)}
+                                aria-label={`Go to project ${i + 1}`}
+                                className={`rounded-full transition-all duration-300 ${
+                                    active
+                                        ? 'w-6 h-2 bg-accent'
+                                        : 'w-2 h-2 bg-border-color hover:bg-text-muted'
+                                }`}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
 };
