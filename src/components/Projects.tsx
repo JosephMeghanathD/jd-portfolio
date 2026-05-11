@@ -114,18 +114,18 @@ export const Projects = () => {
   // --- END NEW ---
 
   return (
-    <section id="projects" className="py-20 overflow-hidden">
-      <div className="container mx-auto flex flex-col items-center">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold text-center mb-4 text-text-primary"
-          initial={{ opacity: 0, y: -50 }}
+    <section id="projects" className="py-24 overflow-hidden">
+      <div className="flex flex-col items-center">
+        <motion.div
+          className="mb-12 w-full px-6 sm:px-10 lg:px-20 xl:px-28 max-w-7xl mx-auto"
+          initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          My Projects
-        </motion.h2>
-        <br/><br/>
+          <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-2">03 / Projects</p>
+          <h2 className="text-4xl md:text-5xl font-bold text-text-primary">My Projects</h2>
+        </motion.div>
 
         <div
           className="w-full relative h-[520px] md:h-[550px]"
@@ -143,7 +143,7 @@ export const Projects = () => {
                 key={`${project.title}-${i}`}
                 // --- MODIFIED ---
                 // Added an onClick handler and a conditional cursor style for better UX.
-                className={`w-[90vw] md:w-[450px] flex-shrink-0 bg-background-primary/50 backdrop-blur-sm border border-border-color rounded-lg overflow-hidden shadow-lg ${i !== centeredIndex ? 'cursor-pointer' : ''}`}
+                className={`w-[90vw] md:w-[450px] flex-shrink-0 bg-background-elevated/60 backdrop-blur-sm border border-border-color rounded-2xl overflow-hidden shadow-2xl shadow-black/20 ${i !== centeredIndex ? 'cursor-pointer' : ''}`}
                 onClick={() => handleCardClick(i)}
                 // --- END MODIFIED ---
                 animate={{
@@ -186,6 +186,25 @@ export const Projects = () => {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+
+        {/* Nav dots */}
+        <div className="flex items-center gap-2 mt-6">
+          {projectsData.map((_, i) => {
+            const active = i === currentIndex % projectsData.length;
+            return (
+              <button
+                key={i}
+                onClick={() => setCurrentIndex(projectsData.length + i)}
+                aria-label={`Go to project ${i + 1}`}
+                className={`rounded-full transition-all duration-300 ${
+                  active
+                    ? 'w-6 h-2 bg-accent'
+                    : 'w-2 h-2 bg-border-color hover:bg-text-muted'
+                }`}
+              />
+            );
+          })}
         </div>
       </div>
     </section>

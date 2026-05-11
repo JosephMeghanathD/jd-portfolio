@@ -3,36 +3,41 @@
 @tailwind utilities;
 
 @layer base {
-  /* Define CSS variables for the entire application */
   :root {
-    /* Light Mode (Default) */
-    --bg-primary: #ffffff;      /* White */
-    --bg-secondary: #f9fafb;    /* Off-white (gray-50) */
-    --text-primary: #000000;    /* Black */
-    --text-secondary: #4b5563;  /* gray-600 */
-    --accent: #22d3ee;          /* cyan-400 */
-    --accent-hover: #67e8f9;    /* cyan-300 */  
-    --border-color: #e5e7eb;    /* gray-200 */
+    /* Light Mode */
+    --bg-primary: #FAFAFA;
+    --bg-secondary: #F4F4F5;
+    --bg-elevated: #FFFFFF;
+    --text-primary: #09090B;
+    --text-secondary: #52525B;
+    --text-muted: #A1A1AA;
+    --accent: #0891B2;
+    --accent-hover: #0E7490;
+    --accent-dim: rgba(8, 145, 178, 0.08);
+    --border-color: rgba(0, 0, 0, 0.07);
   }
 
   .dark {
     /* Dark Mode */
-    --bg-primary: #000000;      /* Black */
-    --bg-secondary: #1f2937;    /* gray-800 */
-    --text-primary: #ffffff;    /* White */
-    --text-secondary: #d1d5db;  /* gray-300 */
-    --accent: #22d3ee;          /* cyan-400 */
-    --accent-hover: #67e8f9;    /* cyan-300 */
-    --border-color: #374151;    /* gray-700 */
+    --bg-primary: #09090B;
+    --bg-secondary: #0F0F12;
+    --bg-elevated: #18181B;
+    --text-primary: #FAFAFA;
+    --text-secondary: #A1A1AA;
+    --text-muted: #52525B;
+    --accent: #22D3EE;
+    --accent-hover: #67E8F9;
+    --accent-dim: rgba(34, 211, 238, 0.08);
+    --border-color: rgba(255, 255, 255, 0.06);
   }
 
   body {
     @apply bg-background-primary text-text-primary transition-colors duration-300;
-    font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   #root {
     max-width: 100%;
     margin: 0;
@@ -45,4 +50,14 @@
     height: 100%;
     display: block;
   }
+
+  ::selection {
+    background: var(--accent);
+    color: #09090B;
+  }
+}
+
+/* smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }

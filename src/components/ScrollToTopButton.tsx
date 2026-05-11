@@ -7,31 +7,22 @@ export const ScrollToTopButton = () => {
     const [isVisible, setIsVisible] = useState(false);
     const { scrollY } = useScroll();
 
-    useMotionValueEvent(scrollY, "change", (latest) => {
-       
-        if (latest > 400) {
-            setIsVisible(true);
-        } else {
-            setIsVisible(false);
-        }
+    useMotionValueEvent(scrollY, 'change', (latest) => {
+        setIsVisible(latest > 400);
     });
-
-    const scrollToTop = () => {
-        scroll.scrollToTop({ duration: 500, smooth: true });
-    };
 
     return (
         <motion.button
-            className="fixed bottom-8 right-8 z-50 p-3 rounded-full bg-accent text-white dark:text-black shadow-lg"
-            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-background-elevated border border-border-color text-text-muted hover:text-accent hover:border-accent/40 shadow-lg transition-colors"
+            onClick={() => scroll.scrollToTop({ duration: 500, smooth: true })}
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: isVisible ? 1 : 0, opacity: isVisible ? 1 : 0 }}
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ y: -2 }}
             whileTap={{ scale: 0.9 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             aria-label="Scroll to top"
         >
-            <FaArrowUp />
+            <FaArrowUp size={14} />
         </motion.button>
     );
 };

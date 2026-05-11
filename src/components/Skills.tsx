@@ -1,13 +1,13 @@
-import { motion } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 
 const skillsData = [
     {
         category: 'Programming Languages',
-        skills: ['Java', 'Python', 'JavaScript', 'C', 'C++'],
+        skills: ['Java', 'Python', 'JavaScript', 'TypeScript', 'C', 'C++'],
     },
     {
         category: 'Backend Development',
-        skills: ['Spring Boot', 'RESTful APIs', 'Microservices', 'Node.js'],
+        skills: ['Spring Boot', 'Node.js', 'RESTful APIs', 'Microservices', 'Kafka', 'Redis Pipelines'],
     },
     {
         category: 'Frontend Development',
@@ -15,76 +15,89 @@ const skillsData = [
     },
     {
         category: 'Databases',
-        skills: ['PostgreSQL', 'MySQL', 'Redis', 'Cassandra', 'Oracle', 'Amazon RDS', 'OTSDB'],
+        skills: ['PostgreSQL', 'MySQL', 'Redis', 'Cassandra', 'Oracle', 'Amazon RDS'],
     },
     {
         category: 'CI/CD & DevOps',
         skills: ['Docker', 'Kubernetes', 'Jenkins', 'Git', 'GitLab CI/CD', 'Bash'],
     },
     {
-        category: 'Machine Learning & AI',
-        skills: ['TensorFlow', 'Py-Torch', 'Scikit-learn'],
+        category: 'Platform & Integrations',
+        skills: ['Shopify Plus', 'Checkout Extensibility', 'Web Pixels API', 'HubSpot', 'Braintree', 'LZ Compression'],
     },
     {
-        category: 'Logging & Monitoring',
+        category: 'Machine Learning & AI',
+        skills: ['TensorFlow', 'PyTorch', 'Scikit-learn'],
+    },
+    {
+        category: 'Observability',
         skills: ['Prometheus', 'Grafana', 'Elasticsearch', 'Splunk', 'Log4j'],
     },
     {
-        category: 'Testing & Project Management',
+        category: 'Testing & Tooling',
         skills: ['JUnit', 'Jest', 'Selenium', 'Postman', 'Jira', 'Confluence'],
     },
 ];
 
+const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+        opacity: 1,
+        transition: { staggerChildren: 0.07 },
+    },
+};
+
+const itemVariants: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+};
+
 export const Skills = () => {
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    };
-
     return (
-       
-        <section  id = "skills"  className="py-20 px-4">
-            <div className="container mx-auto">
-                <motion.h2
-                    className="text-4xl md:text-5xl font-bold text-center mb-16 text-text-primary"
-                    initial={{ opacity: 0, y: -50 }}
+        <section id="skills" className="py-24 px-6 sm:px-10 lg:px-20 xl:px-28">
+            <div className="max-w-7xl mx-auto">
+
+                {/* Section header */}
+                <motion.div
+                    className="mb-14"
+                    initial={{ opacity: 0, y: -20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                    Skills & Tech Stack
-                </motion.h2>
+                    <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-2">01 / Skills</p>
+                    <h2 className="text-4xl md:text-5xl font-bold text-text-primary">
+                        Tech Stack
+                    </h2>
+                </motion.div>
 
                 <motion.div
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+                    className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4"
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
+                    viewport={{ once: true, amount: 0.1 }}
                 >
-                    {skillsData.map((category) => (
+                    {skillsData.map((category, idx) => (
                         <motion.div
                             key={category.category}
-                           
-                            className="bg-background-primary/50 backdrop-blur-sm border border-border-color rounded-lg p-6 shadow-lg"
                             variants={itemVariants}
+                            className="group p-6 rounded-2xl border border-border-color bg-background-elevated/40 backdrop-blur-sm hover:border-accent/30 transition-colors duration-300"
                         >
-                            <h3 className="text-xl font-bold text-accent mb-4">{category.category}</h3>
+                            <div className="flex items-center gap-3 mb-4">
+                                <span className="text-text-muted text-xs font-mono">
+                                    {String(idx + 1).padStart(2, '0')}
+                                </span>
+                                <div className="flex-1 h-px bg-border-color" />
+                            </div>
+                            <h3 className="text-base font-semibold text-text-primary mb-4 group-hover:text-accent transition-colors duration-300">
+                                {category.category}
+                            </h3>
                             <div className="flex flex-wrap gap-2">
                                 {category.skills.map((skill) => (
                                     <span
                                         key={skill}
-                                        className="bg-background-secondary border border-border-color text-text-secondary text-sm font-medium px-3 py-1 rounded-full"
+                                        className="bg-background-secondary border border-border-color text-text-secondary text-xs font-medium px-3 py-1.5 rounded-lg"
                                     >
                                         {skill}
                                     </span>

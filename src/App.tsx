@@ -36,13 +36,13 @@ function App() {
     <div>
       <Particles
         className="fixed inset-0 z-0"
-        particleCount={5000}
-        speed={0.05}
-        particleBaseSize={80}
+        particleCount={2500}
+        speed={0.04}
+        particleBaseSize={70}
         particleColors={currentParticleColors}
         disableRotation={true}
         moveParticlesOnHover={true}
-        particleHoverFactor={0.2} 
+        particleHoverFactor={0.15}
         alphaParticles={true}
       />
 
@@ -56,6 +56,12 @@ function App() {
         <Journey />
         <Projects />
         <Contact />
+        <footer className="border-t border-border-color py-8 px-6 sm:px-10 lg:px-20 xl:px-28">
+          <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
+            <span className="text-text-muted text-xs font-mono">© 2026 Joseph D</span>
+            <span className="text-text-muted text-xs font-mono">Built with React · Framer Motion · TypeScript</span>
+          </div>
+        </footer>
       </main>
     </div>
   );
