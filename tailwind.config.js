@@ -26,6 +26,7 @@ export default {
         'border-color': 'var(--border-color)',
         'glass-bg': 'var(--glass-bg)',
         'glass-border': 'var(--glass-border)',
+        'input-bg': 'var(--input-bg)',
       },
       fontFamily: {
         sans: ['"Space Grotesk"', 'sans-serif'],

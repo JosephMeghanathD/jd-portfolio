@@ -6,13 +6,13 @@ const C = {
     svc:  { fill: 'rgba(34,211,238,0.13)',  stroke: 'rgba(34,211,238,0.62)' },
     ext:  { fill: 'rgba(139,92,246,0.13)',  stroke: 'rgba(139,92,246,0.65)' },
     db:   { fill: 'rgba(34,211,238,0.24)',  stroke: 'rgba(34,211,238,0.82)' },
-    cli:  { fill: 'rgba(255,255,255,0.08)', stroke: 'rgba(255,255,255,0.30)' },
+    cli:  { fill: 'var(--d-cli-fill)',       stroke: 'var(--d-cli-stroke)' },
     ml:   { fill: 'rgba(251,146,60,0.13)',  stroke: 'rgba(251,146,60,0.62)' },
     arr:    'rgba(34,211,238,0.88)',
     arrE:   'rgba(139,92,246,0.82)',
     arrML:  'rgba(251,146,60,0.82)',
-    t1:   'rgba(250,250,250,0.96)',
-    t2:   'rgba(161,161,170,0.80)',
+    t1:   'var(--d-t1)',
+    t2:   'var(--d-t2)',
     t3:   'rgba(34,211,238,0.90)',
 };
 const F = "'JetBrains Mono','Courier New',monospace";
@@ -134,12 +134,12 @@ function LayerZone({ y, h, label, w = 556 }: { y: number; h: number; label: stri
     return (
         <g>
             <rect x={2} y={y - 5} width={w} height={h + 10} rx={6}
-                fill="rgba(255,255,255,0.013)"
-                stroke="rgba(255,255,255,0.028)"
+                fill="var(--d-zone-fill)"
+                stroke="var(--d-zone-stroke)"
                 strokeWidth={1} />
             <text x={w - 4} y={y + h / 2 + 4}
                 textAnchor="end" fontSize={7}
-                fill="rgba(255,255,255,0.16)"
+                fill="var(--d-zone-label)"
                 fontFamily={F} letterSpacing={1.5}>
                 {label.toUpperCase()}
             </text>
@@ -181,7 +181,7 @@ function Canvas({ w, h, children }: { w: number; h: number; children: ReactNode 
             preserveAspectRatio="xMidYMid meet">
             <defs>
                 <pattern id="dp" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
-                    <circle cx="1.5" cy="1.5" r="0.9" fill="rgba(255,255,255,0.065)" />
+                    <circle cx="1.5" cy="1.5" r="0.9" fill="var(--d-dot-fill)" />
                 </pattern>
                 <filter id="fdg" x="-160%" y="-160%" width="420%" height="420%">
                     <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" result="b" />
@@ -200,7 +200,7 @@ function Canvas({ w, h, children }: { w: number; h: number; children: ReactNode 
                     <path d="M0 0 L10 5 L0 10z" fill={C.arrML} />
                 </marker>
             </defs>
-            <rect width={w} height={h} fill="rgba(255,255,255,0.025)" rx={10} />
+            <rect width={w} height={h} fill="var(--d-canvas-bg)" rx={10} />
             <rect width={w} height={h} fill="url(#dp)" rx={10} />
             {children}
         </svg>
@@ -429,6 +429,83 @@ export function FinaraDiagram() {
     );
 }
 
+/* ══════════════════════════════════════════════════════════
+   AIRCONTROL  —  560 × 268
+   Camera → OpenCV/MediaPipe → HandProcessor → OS
+   ══════════════════════════════════════════════════════════ */
+export function AirControlDiagram() {
+    return (
+        <Canvas w={560} h={268}>
+            <LayerZone y={4}   h={50}  label="Capture" />
+            <LayerZone y={74}  h={50}  label="Vision" />
+            <LayerZone y={144} h={50}  label="Gesture" />
+            <LayerZone y={212} h={42}  label="Output" />
+
+            <Box x={130} y={8}   w={300} h={42} type="cli" label="Webcam Input"
+                sub="cv2.VideoCapture · 640×480 · flip + BGR→RGB"        delay={0.05} />
+            <Box x={130} y={78}  w={300} h={42} type="ml"  label="MediaPipe Hands"
+                sub="21 landmarks · detection: 0.6 · max_hands: 1"       delay={0.18} />
+            <Box x={90}  y={148} w={380} h={42} type="svc" label="HandProcessor"
+                sub="count_raised_fingers · click_distance · scroll_pos"  delay={0.32} />
+            <Box x={10}  y={216} w={210} h={38} type="svc" label="MouseController"
+                sub="smoothing=5 · debounce=200ms · move + click + scroll" delay={0.48} />
+            <Box x={300} y={216} w={248} h={38} type="ext" label="PyAutoGUI → OS"
+                sub="moveTo · click · scroll · 2560×1600"                  delay={0.56} />
+
+            <Seg   x1={280} y1={50}  x2={280} y2={78}  label="raw frames"      delay={0.13} flowDur="1.0s" />
+            <Seg   x1={280} y1={120} x2={280} y2={148} label="hand_landmarks"  ml delay={0.26} flowDur="1.1s" />
+            <Curve x1={200} y1={190} x2={115} y2={216} label="1 finger"        delay={0.40} flowDur="1.2s" />
+            <Curve x1={360} y1={190} x2={424} y2={216} label="2 fingers"       delay={0.46} flowDur="1.2s" />
+            <Seg   x1={220} y1={235} x2={300} y2={235} label="move/click"      delay={0.52} flowDur="1.0s" />
+
+            <LegendStrip y={252}
+                items={[
+                    { type:'cli', label:'Capture' },
+                    { type:'ml',  label:'Vision' },
+                    { type:'svc', label:'Logic' },
+                    { type:'ext', label:'OS Output' },
+                ]}
+                note="Python · OpenCV · MediaPipe · PyAutoGUI" delay={0.65} />
+        </Canvas>
+    );
+}
+
+/* ══════════════════════════════════════════════════════════
+   CULINAPLAN  —  560 × 248
+   React 19 → Spring Boot 3 → Gemini 2.0 + PostgreSQL
+   ══════════════════════════════════════════════════════════ */
+export function CulinaPlanDiagram() {
+    return (
+        <Canvas w={560} h={248}>
+            <LayerZone y={4}   h={50}  label="Client" />
+            <LayerZone y={74}  h={50}  label="API / Auth" />
+            <LayerZone y={144} h={76}  label="AI · Storage" />
+
+            <Box x={90}  y={8}   w={380} h={42} type="cli" label="React 19 Frontend"
+                sub="TypeScript · Vite · Recharts · Axios · JWT"          delay={0.05} />
+            <Box x={90}  y={78}  w={380} h={42} type="svc" label="Spring Boot 3 Backend"
+                sub="REST API · Spring Security · JPA · JWT · :8080"       delay={0.18} />
+            <Box x={10}  y={150} w={240} h={52} type="ext" label="Gemini 2.0 Flash"
+                sub="recipe gen · nutrition analysis · meal suggestions"    delay={0.36} />
+            <Box x={296} y={150} w={252} h={52} type="db"  label="PostgreSQL 15"
+                sub="recipes · meal_plans · daily_logs · users · Docker"   delay={0.44} />
+
+            <Seg   x1={280} y1={50}  x2={280} y2={78}  label="REST / JWT"    delay={0.13} flowDur="1.1s" />
+            <Curve x1={190} y1={120} x2={130} y2={150} label="Gemini API" ext delay={0.28} flowDur="1.4s" />
+            <Curve x1={370} y1={120} x2={420} y2={150} label="JPA / SQL"      delay={0.34} flowDur="1.3s" />
+
+            <LegendStrip y={232}
+                items={[
+                    { type:'cli', label:'Client' },
+                    { type:'svc', label:'Service' },
+                    { type:'ext', label:'AI' },
+                    { type:'db',  label:'Storage' },
+                ]}
+                note="Docker Compose · Spring Security · JWT auth" delay={0.55} />
+        </Canvas>
+    );
+}
+
 /* ── Public registry ──────────────────────────────────── */
 export type DiagramKey =
     | 'TaskPilot: AI Microservices To-Do App'
@@ -436,7 +513,9 @@ export type DiagramKey =
     | 'AAD RideShare Application'
     | 'NanoRetry'
     | 'RecordRules v1.0.4'
-    | 'Finara — AI Financial Storyteller';
+    | 'Finara — AI Financial Storyteller'
+    | 'AirControl — Gesture-Driven Desktop'
+    | 'CulinaPlan — AI Meal Planner';
 
 export const DIAGRAMS: Record<DiagramKey, { component: React.FC; insight: string }> = {
     'TaskPilot: AI Microservices To-Do App': {
@@ -462,6 +541,14 @@ export const DIAGRAMS: Record<DiagramKey, { component: React.FC; insight: string
     'Finara — AI Financial Storyteller': {
         component: FinaraDiagram,
         insight: 'The Spring Boot Backend is the sole orchestrator — React never contacts the ML service directly, keeping the AI boundary clean and auditable. Gemma runs locally via Ollama so transaction data never leaves the machine, solving the core privacy concern of AI-powered personal finance tools.',
+    },
+    'AirControl — Gesture-Driven Desktop': {
+        component: AirControlDiagram,
+        insight: 'The pipeline is single-threaded and synchronous by design — MediaPipe processes one frame at a time at ~34 FPS, so gesture state never races. A smoothing factor of 5 averages the last five index-tip positions before mapping to screen coordinates, eliminating the jitter that makes raw landmark-to-cursor mapping unusable.',
+    },
+    'CulinaPlan — AI Meal Planner': {
+        component: CulinaPlanDiagram,
+        insight: 'Gemini is invoked exclusively from the Spring Boot layer — the frontend never holds an API key and cannot make direct AI calls. This centralises rate-limit handling, prompt versioning, and safety filtering in one place, keeping the React client a pure UI consumer.',
     },
 };
 

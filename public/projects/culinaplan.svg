@@ -1,0 +1,256 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <pattern id="dots" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="0.65" fill="rgba(245,158,11,0.06)"/>
+    </pattern>
+    <linearGradient id="wbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0C0A08"/>
+      <stop offset="100%" stop-color="#12100D"/>
+    </linearGradient>
+    <linearGradient id="amberbar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(245,158,11,0.85)"/>
+      <stop offset="100%" stop-color="rgba(251,191,36,0.65)"/>
+    </linearGradient>
+    <linearGradient id="greenbar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(34,197,94,0.8)"/>
+      <stop offset="100%" stop-color="rgba(74,222,128,0.55)"/>
+    </linearGradient>
+    <linearGradient id="redbar" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="rgba(239,68,68,0.75)"/>
+      <stop offset="100%" stop-color="rgba(248,113,113,0.5)"/>
+    </linearGradient>
+    <filter id="aglow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <style>
+      @keyframes gcur { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+      .gcursor { animation: gcur 1.1s step-end infinite; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="url(#wbg)"/>
+  <rect width="800" height="450" fill="url(#dots)"/>
+  <!-- Warm top glow -->
+  <ellipse cx="160" cy="-30" rx="280" ry="100" fill="rgba(245,158,11,0.05)"/>
+
+  <!-- ── NAV BAR ── -->
+  <rect width="800" height="46" fill="rgba(255,255,255,0.025)"/>
+  <rect y="45" width="800" height="1" fill="rgba(255,255,255,0.07)"/>
+
+  <!-- Logo -->
+  <rect x="18" y="13" width="18" height="18" rx="4" fill="rgba(245,158,11,0.25)" stroke="rgba(245,158,11,0.5)" stroke-width="1"/>
+  <text x="27" y="26" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="#F59E0B">C</text>
+  <text x="42" y="30" font-family="monospace" font-size="13" font-weight="700" fill="#FAFAFA">CulinaPlan</text>
+  <rect x="116" y="18" width="1" height="12" fill="rgba(255,255,255,0.1)"/>
+  <text x="122" y="27" font-family="monospace" font-size="8" fill="rgba(245,158,11,0.6)">AI MEAL PLANNER</text>
+
+  <!-- Nav links -->
+  <text x="260" y="29" font-family="monospace" font-size="10" fill="rgba(245,158,11,0.9)" font-weight="700">Meal Plan</text>
+  <text x="346" y="29" font-family="monospace" font-size="10" fill="rgba(161,161,170,0.5)">Recipes</text>
+  <text x="416" y="29" font-family="monospace" font-size="10" fill="rgba(161,161,170,0.5)">Nutrition</text>
+  <text x="495" y="29" font-family="monospace" font-size="10" fill="rgba(161,161,170,0.5)">Daily Log</text>
+
+  <!-- AI Generate button -->
+  <rect x="680" y="11" width="104" height="24" rx="5" fill="rgba(245,158,11,0.18)" stroke="rgba(245,158,11,0.45)" stroke-width="1"/>
+  <text x="732" y="27" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(245,158,11,0.9)">✦ AI Generate</text>
+
+  <!-- ── STAT CARDS ── -->
+
+  <!-- Card: Recipes -->
+  <rect x="16" y="56" width="138" height="62" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="28" y="76" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.5)">SAVED RECIPES</text>
+  <text x="28" y="100" font-family="monospace" font-size="22" font-weight="700" fill="#FAFAFA">47</text>
+  <text x="28" y="112" font-family="monospace" font-size="8" fill="rgba(245,158,11,0.6)">+3 this week</text>
+
+  <!-- Card: Meal Plans -->
+  <rect x="162" y="56" width="138" height="62" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="174" y="76" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.5)">MEAL PLANS</text>
+  <text x="174" y="100" font-family="monospace" font-size="22" font-weight="700" fill="#FAFAFA">12</text>
+  <text x="174" y="112" font-family="monospace" font-size="8" fill="rgba(34,197,94,0.65)">↑ Active this month</text>
+
+  <!-- Card: Calories Today -->
+  <rect x="308" y="56" width="138" height="62" rx="6" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+  <text x="320" y="76" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.5)">CALORIES TODAY</text>
+  <text x="320" y="100" font-family="monospace" font-size="22" font-weight="700" fill="#FAFAFA">1,840</text>
+  <text x="320" y="112" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.4)">goal: 2,100 kcal</text>
+
+  <!-- Card: AI Model -->
+  <rect x="454" y="56" width="330" height="62" rx="6" fill="rgba(245,158,11,0.05)" stroke="rgba(245,158,11,0.22)" stroke-width="1"/>
+  <text x="466" y="76" font-family="monospace" font-size="8" fill="rgba(245,158,11,0.55)">AI ENGINE</text>
+  <text x="466" y="100" font-family="monospace" font-size="15" font-weight="700" fill="#FAFAFA">Gemini 2.0 Flash</text>
+  <text x="466" y="112" font-family="monospace" font-size="8" fill="rgba(245,158,11,0.55)">✦ Recipe generation · Nutrition analysis · Smart planning</text>
+
+  <!-- ── WEEKLY MEAL PLAN GRID ── -->
+  <rect x="16" y="130" width="450" height="296" rx="6" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+  <text x="28" y="153" font-family="monospace" font-size="10" font-weight="700" fill="rgba(250,250,250,0.7)">This Week</text>
+  <text x="452" y="153" text-anchor="end" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.35)">May 12–18, 2025</text>
+
+  <!-- Column headers: days -->
+  <text x="76" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.4)">MON</text>
+  <text x="138" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.4)">TUE</text>
+  <text x="200" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(245,158,11,0.8)" font-weight="700">WED</text>
+  <text x="262" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.4)">THU</text>
+  <text x="324" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.4)">FRI</text>
+  <text x="386" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.4)">SAT</text>
+  <text x="448" y="170" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.4)">SUN</text>
+
+  <!-- Row labels -->
+  <text x="28" y="200" font-family="monospace" font-size="7.5" fill="rgba(161,161,170,0.35)">BRKFST</text>
+  <text x="28" y="240" font-family="monospace" font-size="7.5" fill="rgba(161,161,170,0.35)">LUNCH</text>
+  <text x="28" y="280" font-family="monospace" font-size="7.5" fill="rgba(161,161,170,0.35)">DINNER</text>
+
+  <!-- Grid cells: Breakfast row (y=178 to 216) -->
+  <!-- MON -->
+  <rect x="56" y="178" width="40" height="36" rx="3" fill="rgba(245,158,11,0.08)" stroke="rgba(245,158,11,0.2)" stroke-width="0.7"/>
+  <text x="76" y="193" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(245,158,11,0.75)">Oatmeal</text>
+  <text x="76" y="204" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(245,158,11,0.5)">320kcal</text>
+  <!-- TUE -->
+  <rect x="118" y="178" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="138" y="193" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Eggs &amp; Toast</text>
+  <text x="138" y="204" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">410kcal</text>
+  <!-- WED (today - highlighted) -->
+  <rect x="180" y="178" width="40" height="36" rx="3" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.45)" stroke-width="1"/>
+  <text x="200" y="193" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(245,158,11,0.9)" font-weight="700">Avocado</text>
+  <text x="200" y="204" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(245,158,11,0.6)">450kcal</text>
+  <!-- THU -->
+  <rect x="242" y="178" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="262" y="193" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Smoothie</text>
+  <text x="262" y="204" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">280kcal</text>
+  <!-- FRI -->
+  <rect x="304" y="178" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="324" y="193" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Granola</text>
+  <text x="324" y="204" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">380kcal</text>
+  <!-- SAT + SUN empty -->
+  <rect x="366" y="178" width="40" height="36" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="3,2"/>
+  <text x="386" y="198" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.12)">+</text>
+  <rect x="428" y="178" width="40" height="36" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="3,2"/>
+  <text x="448" y="198" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.12)">+</text>
+
+  <!-- Lunch row (y=220 to 258) -->
+  <rect x="56" y="220" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="76" y="235" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Chicken</text>
+  <text x="76" y="246" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">520kcal</text>
+  <rect x="118" y="220" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="138" y="235" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Quinoa</text>
+  <text x="138" y="246" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">480kcal</text>
+  <!-- WED lunch (today) -->
+  <rect x="180" y="220" width="40" height="36" rx="3" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.45)" stroke-width="1"/>
+  <text x="200" y="235" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(245,158,11,0.9)" font-weight="700">Stir Fry</text>
+  <text x="200" y="246" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(245,158,11,0.6)">610kcal</text>
+  <rect x="242" y="220" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="262" y="235" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Caesar</text>
+  <text x="262" y="246" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">390kcal</text>
+  <rect x="304" y="220" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="324" y="235" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Sushi</text>
+  <text x="324" y="246" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">550kcal</text>
+  <rect x="366" y="220" width="40" height="36" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="3,2"/>
+  <text x="386" y="240" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.12)">+</text>
+  <rect x="428" y="220" width="40" height="36" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="3,2"/>
+  <text x="448" y="240" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.12)">+</text>
+
+  <!-- Dinner row (y=262 to 300) -->
+  <rect x="56" y="262" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="76" y="277" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Pasta</text>
+  <text x="76" y="288" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">680kcal</text>
+  <rect x="118" y="262" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="138" y="277" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Salmon</text>
+  <text x="138" y="288" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">570kcal</text>
+  <!-- WED dinner (today) -->
+  <rect x="180" y="262" width="40" height="36" rx="3" fill="rgba(245,158,11,0.12)" stroke="rgba(245,158,11,0.35)" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="200" y="277" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(245,158,11,0.65)">Planned</text>
+  <text x="200" y="288" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(245,158,11,0.45)">780kcal</text>
+  <rect x="242" y="262" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="262" y="277" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Tacos</text>
+  <text x="262" y="288" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">620kcal</text>
+  <rect x="304" y="262" width="40" height="36" rx="3" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="0.7"/>
+  <text x="324" y="277" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(250,250,250,0.5)">Ramen</text>
+  <text x="324" y="288" text-anchor="middle" font-family="monospace" font-size="6" fill="rgba(161,161,170,0.4)">710kcal</text>
+  <rect x="366" y="262" width="40" height="36" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="3,2"/>
+  <text x="386" y="282" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.12)">+</text>
+  <rect x="428" y="262" width="40" height="36" rx="3" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.04)" stroke-width="0.7" stroke-dasharray="3,2"/>
+  <text x="448" y="282" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(255,255,255,0.12)">+</text>
+
+  <!-- Nutrition progress bars -->
+  <text x="28" y="328" font-family="monospace" font-size="9" font-weight="700" fill="rgba(250,250,250,0.6)">Today's Nutrition</text>
+
+  <!-- Calories -->
+  <text x="28" y="346" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.5)">Calories</text>
+  <text x="449" y="346" text-anchor="end" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.45)">1840 / 2100</text>
+  <rect x="28" y="350" width="423" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <rect x="28" y="350" width="370" height="7" rx="3" fill="url(#amberbar)"/>
+
+  <!-- Protein -->
+  <text x="28" y="372" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.5)">Protein</text>
+  <text x="449" y="372" text-anchor="end" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.45)">92g / 120g</text>
+  <rect x="28" y="376" width="423" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <rect x="28" y="376" width="325" height="7" rx="3" fill="url(#greenbar)"/>
+
+  <!-- Carbs -->
+  <text x="28" y="398" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.5)">Carbs</text>
+  <text x="449" y="398" text-anchor="end" font-family="monospace" font-size="8" fill="rgba(161,161,170,0.45)">210g / 200g</text>
+  <rect x="28" y="402" width="423" height="7" rx="3" fill="rgba(255,255,255,0.06)"/>
+  <rect x="28" y="402" width="423" height="7" rx="3" fill="url(#redbar)"/>
+  <!-- Over limit indicator -->
+  <rect x="397" y="398" width="52" height="14" rx="3" fill="rgba(239,68,68,0.12)" stroke="rgba(239,68,68,0.3)" stroke-width="0.7"/>
+  <text x="423" y="408" text-anchor="middle" font-family="monospace" font-size="6.5" fill="rgba(239,68,68,0.7)">+10g over</text>
+
+  <!-- ── RIGHT AI PANEL ── -->
+  <rect x="480" y="130" width="304" height="296" rx="6" fill="rgba(245,158,11,0.025)" stroke="rgba(245,158,11,0.18)" stroke-width="1"/>
+
+  <!-- AI Panel header -->
+  <rect x="480" y="130" width="304" height="38" rx="6" fill="rgba(245,158,11,0.06)"/>
+  <rect x="480" y="158" width="304" height="10" fill="rgba(245,158,11,0.06)"/>
+  <rect x="480" y="167" width="304" height="1" fill="rgba(245,158,11,0.18)"/>
+  <text x="494" y="155" font-family="monospace" font-size="10" font-weight="700" fill="rgba(245,158,11,0.9)">✦  AI Recipe Generator</text>
+  <text x="772" y="155" text-anchor="end" font-family="monospace" font-size="8" fill="rgba(245,158,11,0.4)">Gemini 2.0</text>
+
+  <!-- Recipe card generated -->
+  <rect x="492" y="174" width="280" height="98" rx="5" fill="rgba(255,255,255,0.03)" stroke="rgba(245,158,11,0.14)" stroke-width="1"/>
+  <text x="504" y="192" font-family="monospace" font-size="11" font-weight="700" fill="rgba(250,250,250,0.85)">Lemon Herb Chicken</text>
+  <text x="504" y="207" font-family="monospace" font-size="8" fill="rgba(245,158,11,0.6)">✦ AI Generated  ·  ⏱ 25 min  ·  🍽 2 servings</text>
+
+  <text x="504" y="224" font-family="monospace" font-size="8" fill="rgba(250,250,250,0.4)">Ingredients: chicken breast, lemon zest,</text>
+  <text x="504" y="235" font-family="monospace" font-size="8" fill="rgba(250,250,250,0.4)">garlic, fresh thyme, olive oil, capers.</text>
+
+  <!-- Nutrition tags -->
+  <rect x="504" y="243" width="40" height="14" rx="3" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.3)" stroke-width="0.7"/>
+  <text x="524" y="253" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(34,197,94,0.8)">380kcal</text>
+  <rect x="550" y="243" width="36" height="14" rx="3" fill="rgba(59,130,246,0.12)" stroke="rgba(59,130,246,0.3)" stroke-width="0.7"/>
+  <text x="568" y="253" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(59,130,246,0.8)">42g P</text>
+  <rect x="592" y="243" width="36" height="14" rx="3" fill="rgba(245,158,11,0.1)" stroke="rgba(245,158,11,0.25)" stroke-width="0.7"/>
+  <text x="610" y="253" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(245,158,11,0.7)">8g C</text>
+  <rect x="634" y="243" width="40" height="14" rx="3" fill="rgba(168,85,247,0.1)" stroke="rgba(168,85,247,0.25)" stroke-width="0.7"/>
+  <text x="654" y="253" text-anchor="middle" font-family="monospace" font-size="7" fill="rgba(168,85,247,0.7)">18g Fat</text>
+
+  <!-- Typing cursor for AI generation -->
+  <text x="492" y="294" font-family="monospace" font-size="9" fill="rgba(250,250,250,0.55)">Generating steps for Thursday...</text>
+  <rect class="gcursor" x="492" y="298" width="5" height="10" rx="1" fill="rgba(245,158,11,0.75)"/>
+
+  <!-- Add to plan button -->
+  <rect x="492" y="308" width="280" height="28" rx="5" fill="rgba(245,158,11,0.2)" stroke="rgba(245,158,11,0.45)" stroke-width="1"/>
+  <text x="632" y="326" text-anchor="middle" font-family="monospace" font-size="10" font-weight="700" fill="rgba(245,158,11,0.9)">+ Add to Meal Plan</text>
+
+  <!-- Quick Prompts -->
+  <text x="492" y="358" font-family="monospace" font-size="8.5" fill="rgba(161,161,170,0.4)">Quick prompts</text>
+  <rect x="492" y="364" width="98" height="18" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+  <text x="541" y="376" text-anchor="middle" font-family="monospace" font-size="7.5" fill="rgba(161,161,170,0.5)">High protein</text>
+  <rect x="596" y="364" width="78" height="18" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+  <text x="635" y="376" text-anchor="middle" font-family="monospace" font-size="7.5" fill="rgba(161,161,170,0.5)">Low carb</text>
+  <rect x="680" y="364" width="92" height="18" rx="4" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+  <text x="726" y="376" text-anchor="middle" font-family="monospace" font-size="7.5" fill="rgba(161,161,170,0.5)">30-min meal</text>
+
+  <!-- Ask input -->
+  <rect x="492" y="390" width="268" height="26" rx="5" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="504" y="406" font-family="monospace" font-size="8.5" fill="rgba(161,161,170,0.3)">Suggest dinner for tonight...</text>
+  <rect x="732" y="393" width="22" height="20" rx="4" fill="rgba(245,158,11,0.2)" stroke="rgba(245,158,11,0.4)" stroke-width="1"/>
+  <text x="743" y="406" text-anchor="middle" font-family="monospace" font-size="9" fill="rgba(245,158,11,0.8)">→</text>
+
+  <!-- ── BOTTOM BAR ── -->
+  <rect x="0" y="428" width="800" height="22" fill="rgba(255,255,255,0.015)"/>
+  <rect x="0" y="428" width="800" height="1" fill="rgba(255,255,255,0.05)"/>
+  <text x="16" y="442" font-family="monospace" font-size="7.5" fill="rgba(161,161,170,0.3)">Java 17 · Spring Boot 3 · Spring Security · PostgreSQL 15 · React 19 · Recharts · Gemini 2.0 · Docker</text>
+  <circle cx="780" cy="437" r="3" fill="rgba(245,158,11,0.6)"/>
+  <text x="773" y="441" text-anchor="end" font-family="monospace" font-size="7" fill="rgba(245,158,11,0.5)">AI</text>
+</svg>

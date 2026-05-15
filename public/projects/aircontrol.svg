@@ -1,0 +1,219 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <pattern id="grid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M 24 0 L 0 0 0 24" fill="none" stroke="rgba(0,255,136,0.04)" stroke-width="0.5"/>
+    </pattern>
+    <filter id="hglow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="sglow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="txglow">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="handbg" cx="50%" cy="55%" r="45%">
+      <stop offset="0%" stop-color="rgba(0,255,136,0.05)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+    <style>
+      @keyframes scan { 0%{transform:translateY(-330px)} 100%{transform:translateY(0px)} }
+      @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+      @keyframes pulse { 0%,100%{opacity:0.7} 50%{opacity:1} }
+      @keyframes track { 0%,100%{r:3.5} 50%{r:5} }
+      .scanline { animation: scan 3.5s linear infinite; }
+      .cursor-blink { animation: blink 1s step-end infinite; }
+      .status-pulse { animation: pulse 2.2s ease-in-out infinite; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="450" fill="#060A10"/>
+  <rect width="800" height="450" fill="url(#grid)"/>
+
+  <!-- Top header bar -->
+  <rect width="800" height="44" fill="rgba(0,255,136,0.04)"/>
+  <rect y="43" width="800" height="1" fill="rgba(0,255,136,0.15)"/>
+
+  <!-- Header: Title left -->
+  <text x="18" y="16" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.5)" letter-spacing="3">HAND CONTROL SYSTEM</text>
+  <text x="18" y="32" font-family="monospace" font-size="13" font-weight="700" fill="#00FF88" filter="url(#txglow)">AirControl</text>
+
+  <!-- Header: Status right -->
+  <circle class="status-pulse" cx="694" cy="22" r="4.5" fill="#00FF88" filter="url(#hglow)"/>
+  <text x="705" y="26" font-family="monospace" font-size="10" fill="rgba(0,255,136,0.8)">ACTIVE</text>
+  <text x="650" y="38" font-family="monospace" font-size="8" fill="rgba(0,255,136,0.4)">SESSION 00:04:23</text>
+
+  <!-- ── CAMERA FEED PANEL ── -->
+  <rect x="16" y="52" width="462" height="366" rx="4" fill="#030806" stroke="rgba(0,255,136,0.2)" stroke-width="1"/>
+
+  <!-- Grid overlay inside camera -->
+  <rect x="16" y="52" width="462" height="366" fill="url(#grid)" opacity="0.8"/>
+
+  <!-- Scan line effect (clipped) -->
+  <clipPath id="cam-clip">
+    <rect x="16" y="52" width="462" height="366"/>
+  </clipPath>
+  <g clip-path="url(#cam-clip)">
+    <rect class="scanline" x="16" y="52" width="462" height="2" fill="rgba(0,255,136,0.06)"/>
+  </g>
+
+  <!-- Camera label -->
+  <rect x="16" y="52" width="462" height="22" fill="rgba(0,0,0,0.5)"/>
+  <circle cx="28" cy="63" r="4" fill="rgba(0,255,136,0.3)"/>
+  <circle cx="28" cy="63" r="2" fill="#00FF88"/>
+  <text x="38" y="67" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.6)">CAM 0  640×480  @30fps</text>
+  <text x="420" y="67" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.4)">LIVE</text>
+
+  <!-- Hand glow bg -->
+  <ellipse cx="247" cy="280" rx="90" ry="110" fill="url(#handbg)"/>
+
+  <!-- ── HAND SKELETON ── -->
+
+  <!-- Palm connections (wrist to MCPs) -->
+  <line x1="247" y1="348" x2="220" y2="288" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="247" y1="348" x2="245" y2="283" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="247" y1="348" x2="268" y2="287" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="247" y1="348" x2="286" y2="296" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+
+  <!-- Thumb chain (curled outward) -->
+  <line x1="247" y1="348" x2="228" y2="310" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="228" y1="310" x2="206" y2="298" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="206" y1="298" x2="190" y2="284" stroke="rgba(0,255,136,0.25)" stroke-width="1.5"/>
+  <line x1="190" y1="284" x2="178" y2="270" stroke="rgba(0,255,136,0.25)" stroke-width="1.5"/>
+
+  <!-- Index finger chain (EXTENDED UPWARD) -->
+  <line x1="220" y1="288" x2="208" y2="252" stroke="rgba(0,255,136,0.55)" stroke-width="2"/>
+  <line x1="208" y1="252" x2="196" y2="218" stroke="rgba(0,255,136,0.55)" stroke-width="2"/>
+  <line x1="196" y1="218" x2="186" y2="188" stroke="rgba(0,255,136,0.6)" stroke-width="2"/>
+
+  <!-- Middle finger chain (curled) -->
+  <line x1="245" y1="283" x2="248" y2="314" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="248" y1="314" x2="249" y2="334" stroke="rgba(0,255,136,0.25)" stroke-width="1.5"/>
+  <line x1="249" y1="334" x2="249" y2="349" stroke="rgba(0,255,136,0.2)" stroke-width="1.5"/>
+
+  <!-- Ring finger chain (curled) -->
+  <line x1="268" y1="287" x2="272" y2="318" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="272" y1="318" x2="273" y2="337" stroke="rgba(0,255,136,0.25)" stroke-width="1.5"/>
+  <line x1="273" y1="337" x2="273" y2="351" stroke="rgba(0,255,136,0.2)" stroke-width="1.5"/>
+
+  <!-- Pinky chain (curled) -->
+  <line x1="286" y1="296" x2="290" y2="323" stroke="rgba(0,255,136,0.3)" stroke-width="1.5"/>
+  <line x1="290" y1="323" x2="291" y2="339" stroke="rgba(0,255,136,0.25)" stroke-width="1.5"/>
+  <line x1="291" y1="339" x2="291" y2="351" stroke="rgba(0,255,136,0.2)" stroke-width="1.5"/>
+
+  <!-- Thumb-Index distance line (NOT clicking - green) -->
+  <line x1="186" y1="188" x2="178" y2="270" stroke="rgba(0,255,136,0.6)" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- ── LANDMARK DOTS ── -->
+  <!-- Wrist -->
+  <circle cx="247" cy="348" r="3.5" fill="rgba(0,255,136,0.4)" stroke="rgba(0,255,136,0.7)" stroke-width="1"/>
+  <!-- Thumb chain -->
+  <circle cx="228" cy="310" r="2.5" fill="rgba(0,255,136,0.35)" stroke="rgba(0,255,136,0.6)" stroke-width="0.8"/>
+  <circle cx="206" cy="298" r="2.5" fill="rgba(0,255,136,0.35)" stroke="rgba(0,255,136,0.6)" stroke-width="0.8"/>
+  <circle cx="190" cy="284" r="2.5" fill="rgba(0,255,136,0.35)" stroke="rgba(0,255,136,0.6)" stroke-width="0.8"/>
+  <circle cx="178" cy="270" r="3.5" fill="rgba(0,255,136,0.5)" stroke="rgba(0,255,136,0.8)" stroke-width="1"/>
+  <!-- Index chain (brighter - active finger) -->
+  <circle cx="220" cy="288" r="3" fill="rgba(0,255,136,0.5)" stroke="rgba(0,255,136,0.9)" stroke-width="1"/>
+  <circle cx="208" cy="252" r="3" fill="rgba(0,255,136,0.55)" stroke="rgba(0,255,136,0.9)" stroke-width="1"/>
+  <circle cx="196" cy="218" r="3" fill="rgba(0,255,136,0.55)" stroke="rgba(0,255,136,0.9)" stroke-width="1"/>
+  <!-- Index TIP - brightest, cursor control point -->
+  <circle cx="186" cy="188" r="6" fill="rgba(0,255,136,0.12)" filter="url(#sglow)"/>
+  <circle cx="186" cy="188" r="4.5" fill="rgba(0,255,136,0.3)" stroke="#00FF88" stroke-width="1.5" filter="url(#hglow)"/>
+  <circle cx="186" cy="188" r="2.5" fill="#00FF88"/>
+  <!-- Middle, ring, pinky MCPs (dim) -->
+  <circle cx="245" cy="283" r="2.5" fill="rgba(0,255,136,0.3)" stroke="rgba(0,255,136,0.5)" stroke-width="0.8"/>
+  <circle cx="268" cy="287" r="2.5" fill="rgba(0,255,136,0.3)" stroke="rgba(0,255,136,0.5)" stroke-width="0.8"/>
+  <circle cx="286" cy="296" r="2.5" fill="rgba(0,255,136,0.3)" stroke="rgba(0,255,136,0.5)" stroke-width="0.8"/>
+  <!-- Curled tips (very dim) -->
+  <circle cx="249" cy="349" r="2" fill="rgba(0,255,136,0.2)" stroke="rgba(0,255,136,0.35)" stroke-width="0.7"/>
+  <circle cx="273" cy="351" r="2" fill="rgba(0,255,136,0.2)" stroke="rgba(0,255,136,0.35)" stroke-width="0.7"/>
+  <circle cx="291" cy="351" r="2" fill="rgba(0,255,136,0.2)" stroke="rgba(0,255,136,0.35)" stroke-width="0.7"/>
+
+  <!-- Distance label on the dashed line -->
+  <rect x="124" y="217" width="48" height="16" rx="3" fill="rgba(0,0,0,0.7)" stroke="rgba(0,255,136,0.3)" stroke-width="0.8"/>
+  <text x="148" y="228" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(0,255,136,0.8)">d=0.068</text>
+
+  <!-- ── INDEX TIP cursor target crosshair ── -->
+  <line x1="176" y1="188" x2="166" y2="188" stroke="rgba(0,255,136,0.5)" stroke-width="1"/>
+  <line x1="196" y1="188" x2="206" y2="188" stroke="rgba(0,255,136,0.5)" stroke-width="1"/>
+  <line x1="186" y1="178" x2="186" y2="168" stroke="rgba(0,255,136,0.5)" stroke-width="1"/>
+  <line x1="186" y1="198" x2="186" y2="208" stroke="rgba(0,255,136,0.5)" stroke-width="1"/>
+
+  <!-- Gesture mode badge inside camera -->
+  <rect x="24" y="380" width="126" height="26" rx="4" fill="rgba(0,255,136,0.08)" stroke="rgba(0,255,136,0.35)" stroke-width="1"/>
+  <circle cx="36" cy="393" r="3.5" fill="#00FF88" filter="url(#hglow)"/>
+  <text x="44" y="397" font-family="monospace" font-size="9" font-weight="700" fill="rgba(0,255,136,0.9)">CURSOR MODE</text>
+  <rect x="162" y="380" width="104" height="26" rx="4" fill="rgba(255,255,255,0.03)" stroke="rgba(0,255,136,0.15)" stroke-width="1"/>
+  <text x="214" y="390" text-anchor="middle" font-family="monospace" font-size="7.5" fill="rgba(0,255,136,0.4)">2 FINGERS =</text>
+  <text x="214" y="401" text-anchor="middle" font-family="monospace" font-size="7.5" fill="rgba(0,255,136,0.4)">SCROLL MODE</text>
+
+  <!-- Cursor pos in camera feed -->
+  <text x="380" y="395" text-anchor="end" font-family="monospace" font-size="8.5" fill="rgba(0,255,136,0.35)">CURSOR  x:1456  y:892</text>
+  <text x="380" y="407" text-anchor="end" font-family="monospace" font-size="8.5" fill="rgba(0,255,136,0.25)">FPS 34.2  FRAME 1847</text>
+
+  <!-- ── RIGHT PANEL ── -->
+  <rect x="488" y="52" width="296" height="366" rx="4" fill="rgba(0,255,136,0.02)" stroke="rgba(0,255,136,0.15)" stroke-width="1"/>
+
+  <!-- Section: Detection -->
+  <text x="504" y="78" font-family="monospace" font-size="8" fill="rgba(0,255,136,0.4)" letter-spacing="2">DETECTION</text>
+  <rect x="496" y="83" width="272" height="60" rx="4" fill="rgba(0,255,136,0.04)" stroke="rgba(0,255,136,0.1)" stroke-width="1"/>
+  <text x="508" y="101" font-family="monospace" font-size="10" fill="rgba(0,255,136,0.5)">HAND LANDMARKS</text>
+  <text x="752" y="101" text-anchor="end" font-family="monospace" font-size="12" font-weight="700" fill="#00FF88">21</text>
+  <text x="508" y="117" font-family="monospace" font-size="10" fill="rgba(0,255,136,0.5)">RAISED FINGERS</text>
+  <text x="752" y="117" text-anchor="end" font-family="monospace" font-size="12" font-weight="700" fill="#00FF88" filter="url(#txglow)">1</text>
+  <text x="508" y="133" font-family="monospace" font-size="10" fill="rgba(0,255,136,0.5)">CONFIDENCE</text>
+  <text x="752" y="133" text-anchor="end" font-family="monospace" font-size="11" font-weight="700" fill="#00FF88">94.3%</text>
+
+  <!-- Section: Click Distance Meter -->
+  <text x="504" y="160" font-family="monospace" font-size="8" fill="rgba(0,255,136,0.4)" letter-spacing="2">CLICK DETECTION</text>
+  <rect x="496" y="165" width="272" height="70" rx="4" fill="rgba(0,255,136,0.04)" stroke="rgba(0,255,136,0.1)" stroke-width="1"/>
+
+  <!-- Distance bar -->
+  <text x="508" y="183" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">INDEX–THUMB DISTANCE</text>
+  <rect x="508" y="190" width="240" height="10" rx="3" fill="rgba(0,255,136,0.08)"/>
+  <!-- Filled portion: d=0.068 out of 0.12 max → ~57% -->
+  <rect x="508" y="190" width="137" height="10" rx="3" fill="rgba(0,255,136,0.5)"/>
+  <!-- Threshold marker at d=0.07 → ~58% = 139px -->
+  <line x1="648" y1="186" x2="648" y2="204" stroke="rgba(239,68,68,0.7)" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="649" y="204" font-family="monospace" font-size="7" fill="rgba(239,68,68,0.6)">THRESHOLD 0.07</text>
+
+  <text x="508" y="224" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">CURRENT</text>
+  <text x="628" y="224" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">DEBOUNCE</text>
+  <text x="508" y="238" font-family="monospace" font-size="13" font-weight="700" fill="rgba(0,255,136,0.9)">0.068</text>
+  <text x="628" y="238" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.55)">200ms</text>
+  <rect x="716" y="224" width="44" height="16" rx="3" fill="rgba(0,255,136,0.07)" stroke="rgba(0,255,136,0.2)" stroke-width="1"/>
+  <text x="738" y="235" text-anchor="middle" font-family="monospace" font-size="8" fill="rgba(0,255,136,0.6)">OPEN</text>
+
+  <!-- Section: Cursor Control -->
+  <text x="504" y="256" font-family="monospace" font-size="8" fill="rgba(0,255,136,0.4)" letter-spacing="2">CURSOR CONTROL</text>
+  <rect x="496" y="261" width="272" height="80" rx="4" fill="rgba(0,255,136,0.04)" stroke="rgba(0,255,136,0.1)" stroke-width="1"/>
+  <text x="508" y="278" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">SCREEN POSITION</text>
+  <text x="508" y="294" font-family="monospace" font-size="13" font-weight="700" fill="#00FF88">1456  ×  892</text>
+  <text x="508" y="310" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">SMOOTHING FACTOR</text>
+  <text x="752" y="310" text-anchor="end" font-family="monospace" font-size="10" fill="rgba(0,255,136,0.7)">5</text>
+  <text x="508" y="326" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">SCREEN RESOLUTION</text>
+  <text x="752" y="326" text-anchor="end" font-family="monospace" font-size="10" fill="rgba(0,255,136,0.7)">2560 × 1600</text>
+  <text x="508" y="342" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">SCROLL Y (2-finger)</text>
+  <text x="752" y="342" text-anchor="end" font-family="monospace" font-size="10" fill="rgba(0,255,136,0.4)">—</text>
+
+  <!-- Section: Performance -->
+  <text x="504" y="362" font-family="monospace" font-size="8" fill="rgba(0,255,136,0.4)" letter-spacing="2">PERFORMANCE</text>
+  <rect x="496" y="367" width="272" height="44" rx="4" fill="rgba(0,255,136,0.04)" stroke="rgba(0,255,136,0.1)" stroke-width="1"/>
+  <text x="508" y="383" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">AVG FPS</text>
+  <text x="590" y="383" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">SESSION</text>
+  <text x="668" y="383" font-family="monospace" font-size="9" fill="rgba(0,255,136,0.45)">FRAMES</text>
+  <text x="508" y="401" font-family="monospace" font-size="13" font-weight="700" fill="#00FF88" filter="url(#txglow)">34.2</text>
+  <text x="590" y="401" font-family="monospace" font-size="11" font-weight="700" fill="rgba(0,255,136,0.75)">4:23</text>
+  <text x="668" y="401" font-family="monospace" font-size="11" font-weight="700" fill="rgba(0,255,136,0.75)">7,894</text>
+
+  <!-- ── BOTTOM STATUS BAR ── -->
+  <rect x="0" y="428" width="800" height="22" fill="rgba(0,255,136,0.025)"/>
+  <rect x="0" y="428" width="800" height="1" fill="rgba(0,255,136,0.12)"/>
+  <text x="18" y="442" font-family="monospace" font-size="7.5" fill="rgba(0,255,136,0.3)">Python 3.11 · OpenCV 4.x · MediaPipe 0.10 · PyAutoGUI · NumPy</text>
+  <circle cx="776" cy="439" r="3.5" fill="#00FF88" filter="url(#hglow)"/>
+  <text x="770" y="442" text-anchor="end" font-family="monospace" font-size="7.5" fill="rgba(0,255,136,0.5)">RUNNING</text>
+</svg>

@@ -12,6 +12,20 @@ const projectsData = [
         sourceUrl: 'https://github.com/JosephMeghanathD/Finara',
     },
     {
+        image: '/projects/aircontrol.svg',
+        title: 'AirControl — Gesture-Driven Desktop',
+        description: 'A touchless desktop controller that maps real-time hand gestures to OS-level cursor actions using computer vision. One raised finger moves the cursor, a pinch click, two fingers scroll — all processed locally at ~34 FPS with no hardware beyond a standard webcam.',
+        tags: ['Python', 'OpenCV', 'MediaPipe', 'Computer Vision', 'PyAutoGUI', 'Gesture Control', 'Hand Tracking'],
+        sourceUrl: 'https://github.com/JoeHitHard/AirControl',
+    },
+    {
+        image: '/projects/culinaplan.svg',
+        title: 'CulinaPlan — AI Meal Planner',
+        description: 'A full-stack AI-powered meal planning platform that uses Gemini 2.0 Flash to generate personalised recipes, analyse nutritional content, and suggest weekly meal plans based on dietary goals. Features daily nutrition tracking, recipe management, and a smart AI chat interface.',
+        tags: ['Java', 'Spring Boot', 'Spring Security', 'Gemini AI', 'React', 'TypeScript', 'Recharts', 'PostgreSQL', 'Docker'],
+        sourceUrl: 'https://github.com/JosephMeghanathD/Culina-Plan',
+    },
+    {
         image: '/projects/record.png',
         title: 'RecordRules v1.0.4',
         description: 'A lightweight Java library for enforcing business logic and data integrity within Java Records. Features a fluent API, record-first design, and comprehensive error collection.',

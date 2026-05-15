@@ -19,6 +19,25 @@
     --glass-border: rgba(0, 0, 0, 0.07);
     --orb-a: rgba(8, 145, 178, 0.10);
     --orb-b: rgba(109, 40, 217, 0.06);
+    /* Inputs */
+    --input-bg: #FFFFFF;
+    --input-border: rgba(0, 0, 0, 0.12);
+    /* Contact card */
+    --contact-card-bg: rgba(255, 255, 255, 0.88);
+    --contact-card-border: rgba(0, 0, 0, 0.10);
+    /* Stars (dark dots on light bg) */
+    --star-far: rgba(30, 30, 50, 0.48);
+    --star-near: rgba(20, 20, 40, 0.65);
+    /* Diagram canvas */
+    --d-canvas-bg: rgba(0, 0, 0, 0.022);
+    --d-dot-fill: rgba(0, 0, 0, 0.065);
+    --d-zone-fill: rgba(0, 0, 0, 0.022);
+    --d-zone-stroke: rgba(0, 0, 0, 0.055);
+    --d-zone-label: rgba(0, 0, 0, 0.25);
+    --d-t1: rgba(9, 9, 11, 0.96);
+    --d-t2: rgba(82, 82, 91, 0.80);
+    --d-cli-fill: rgba(0, 0, 0, 0.06);
+    --d-cli-stroke: rgba(0, 0, 0, 0.22);
   }
 
   .dark {
@@ -37,6 +56,25 @@
     --glass-border: rgba(255, 255, 255, 0.07);
     --orb-a: rgba(34, 211, 238, 0.10);
     --orb-b: rgba(139, 92, 246, 0.07);
+    /* Inputs */
+    --input-bg: #18181B;
+    --input-border: rgba(255, 255, 255, 0.10);
+    /* Contact card */
+    --contact-card-bg: rgba(9, 9, 11, 0.80);
+    --contact-card-border: rgba(255, 255, 255, 0.08);
+    /* Stars (light dots on dark bg) */
+    --star-far: rgba(255, 255, 255, 0.85);
+    --star-near: rgba(200, 220, 255, 0.90);
+    /* Diagram canvas */
+    --d-canvas-bg: rgba(255, 255, 255, 0.025);
+    --d-dot-fill: rgba(255, 255, 255, 0.065);
+    --d-zone-fill: rgba(255, 255, 255, 0.013);
+    --d-zone-stroke: rgba(255, 255, 255, 0.028);
+    --d-zone-label: rgba(255, 255, 255, 0.16);
+    --d-t1: rgba(250, 250, 250, 0.96);
+    --d-t2: rgba(161, 161, 170, 0.80);
+    --d-cli-fill: rgba(255, 255, 255, 0.08);
+    --d-cli-stroke: rgba(255, 255, 255, 0.30);
   }
 
   body {
@@ -110,6 +148,29 @@
     font-family: 'Bricolage Grotesque', sans-serif;
   }
 }
+
+/* ── Star twinkle animations ──────────────────────────── */
+@keyframes twinkle-a {
+  0%, 100% { opacity: 0.12; }
+  50%       { opacity: 0.72; }
+}
+@keyframes twinkle-b {
+  0%, 100% { opacity: 0.38; }
+  45%       { opacity: 0.88; }
+}
+@keyframes twinkle-c {
+  0%, 75%, 100% { opacity: 0.08; }
+  85%           { opacity: 0.62; }
+}
+@keyframes twinkle-d {
+  0%, 100% { opacity: 0.48; }
+  30%       { opacity: 0.82; }
+  65%       { opacity: 0.18; }
+}
+.star-tw-0 { animation: twinkle-a var(--dur, 3s)   var(--del, 0s) ease-in-out infinite; }
+.star-tw-1 { animation: twinkle-b var(--dur, 4s)   var(--del, 0s) ease-in-out infinite; }
+.star-tw-2 { animation: twinkle-c var(--dur, 2.5s) var(--del, 0s) ease-in-out infinite; }
+.star-tw-3 { animation: twinkle-d var(--dur, 5s)   var(--del, 0s) ease-in-out infinite; }
 
 @layer utilities {
   .marquee-container {

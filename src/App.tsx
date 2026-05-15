@@ -6,6 +6,7 @@ import { Skills } from './components/Skills';
 import { Header } from './components/Header';
 import { SocialSidebar } from './components/SocialSidebar';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
+import { BackgroundMoon } from './components/BackgroundMoon';
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
         {/* Faint horizontal lines for depth */}
         <div className="absolute top-[30%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/[0.04] to-transparent" />
         <div className="absolute top-[65%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/[0.03] to-transparent" />
+
+        {/* Moon + stars — scroll-driven phase animation */}
+        <BackgroundMoon />
       </div>
 
       <Header />
