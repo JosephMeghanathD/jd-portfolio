@@ -2,12 +2,10 @@ import {
   motion,
   useScroll,
   AnimatePresence,
-  type Variants,
 } from 'framer-motion';
-import { useState, useRef, useEffect, type ElementType } from 'react';
+import { useState, useRef, type ElementType } from 'react';
 import { FaBriefcase, FaGraduationCap, FaChevronDown } from 'react-icons/fa';
 import { TiltCard } from './TiltCard';
-
 
 const journeyData = [
   {
@@ -15,7 +13,10 @@ const journeyData = [
     icon: FaBriefcase,
     title: 'Sr. Platform Engineer',
     institution: 'Lucky Orange',
+    ghost: 'LUCKY',
     date: 'Feb 2026 – Present',
+    duration: '3+ mo',
+    highlight: '<50ms latency',
     current: true,
     details: [
       'Architecting and scaling a next-generation SDK infrastructure to support high-throughput event tracking for millions of merchant websites, focusing on minimal client-side footprint and LZ-based data compression.',
@@ -30,7 +31,10 @@ const journeyData = [
     icon: FaGraduationCap,
     title: 'Master of Science in Computer Science',
     institution: 'University of Central Missouri',
+    ghost: 'UCM',
     date: 'Jan 2024 – Present',
+    duration: '1+ yr',
+    highlight: '3.8 GPA',
     current: false,
     details: [
       'Pursuing advanced studies in algorithms, distributed systems, and machine learning.',
@@ -43,7 +47,10 @@ const journeyData = [
     icon: FaBriefcase,
     title: 'Software Engineer II — Java Developer',
     institution: 'BICYCLE.IO',
+    ghost: 'BICYCLE',
     date: 'May 2020 – Nov 2023',
+    duration: '3.5 yr',
+    highlight: '+50% perf.',
     current: false,
     details: [
       'Architected and deployed Java-based microservices using Spring Boot, increasing system performance by 50%.',
@@ -57,7 +64,10 @@ const journeyData = [
     icon: FaBriefcase,
     title: 'Software Engineer',
     institution: 'Agilitix.ai',
+    ghost: 'AGILITIX',
     date: 'May 2019 – May 2020',
+    duration: '1 yr',
+    highlight: '−35% false positives',
     current: false,
     details: [
       'Engineered and deployed ML models for anomaly detection, achieving a 35% reduction in false positives.',
@@ -70,7 +80,10 @@ const journeyData = [
     icon: FaBriefcase,
     title: 'Software Engineer Intern',
     institution: 'Agilitix.ai',
+    ghost: 'AGILITIX',
     date: 'Oct 2018 – Apr 2019',
+    duration: '6 mo',
+    highlight: '+15% accuracy',
     current: false,
     details: [
       'Contributed to the deployment of predictive analytics models, improving overall model accuracy by 15%.',
@@ -83,7 +96,10 @@ const journeyData = [
     icon: FaGraduationCap,
     title: 'Bachelor of Engineering in Computer Science',
     institution: 'CMR College of Engineering & Technology',
+    ghost: 'CMR',
     date: 'Aug 2015 – May 2019',
+    duration: '4 yr',
+    highlight: '3.0 GPA',
     current: false,
     details: [
       'Graduated with a focus on data structures, algorithms, and software engineering principles.',
@@ -93,178 +109,240 @@ const journeyData = [
   },
 ];
 
-
-
-export const Journey = () => {
-  const timelineRef = useRef<HTMLDivElement>(null);
-  const [pathD, setPathD] = useState('');
-
-  const { scrollYProgress } = useScroll({
-      target: timelineRef,
-      offset: ["start center", "end center"],
-  });
-
-  useEffect(() => {
-      const calculatePath = () => {
-          if (timelineRef.current) {
-              const { width, height } = timelineRef.current.getBoundingClientRect();
-              setPathD(`M ${width / 2} 0 V ${height}`);
-          }
-      };
-      calculatePath();
-      const resizeObserver = new ResizeObserver(calculatePath);
-      if (timelineRef.current) resizeObserver.observe(timelineRef.current);
-      return () => resizeObserver.disconnect();
-  }, []);
-
-  return (
-      <section id="journey" className="py-24 px-6 sm:px-10 lg:px-20 xl:px-28">
-          <div className="max-w-7xl mx-auto">
-              <motion.div
-                className="mb-20"
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-              >
-                  <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-2">02 / Journey</p>
-                  <h2 className="text-4xl md:text-5xl font-bold text-text-primary">My Journey</h2>
-              </motion.div>
-
-              <div className="relative" ref={timelineRef}>
-                  <div className="absolute left-0 top-0 h-full w-full">
-                      <svg width="100%" height="100%" className="hidden md:block">
-                          <path d={pathD} fill="none" stroke="var(--accent)" strokeOpacity="0.15" strokeWidth="2" />
-                          <motion.path d={pathD} fill="none" stroke="var(--accent)" strokeOpacity="1" strokeWidth="2" style={{ pathLength: scrollYProgress }} />
-                      </svg>
-                      <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-0.5 bg-accent/30 md:hidden" />
-                  </div>
-
-                  <div className="space-y-12">
-                      {journeyData.map((item, index) => (
-                          <TimelineItem key={index} item={item} isLeft={index % 2 === 0} />
-                      ))}
-                  </div>
-              </div>
-          </div>
-      </section>
-  );
-};
-
-
-interface TimelineItemData {
+interface JourneyItemData {
   type: string;
   icon: ElementType;
   title: string;
   institution: string;
+  ghost: string;
   date: string;
+  duration: string;
+  highlight: string;
   current: boolean;
   details: string[];
 }
 
-interface TimelineItemProps {
-  item: TimelineItemData;
-  isLeft: boolean;
-}
+export const Journey = () => {
+  const timelineRef = useRef<HTMLDivElement>(null);
 
-const TimelineItem = ({ item, isLeft }: TimelineItemProps) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { icon: Icon, title, institution, date, details, type, current } = item;
-
-  const cardVariants: Variants = {
-      hidden: { opacity: 0, x: isLeft ? -50 : 50 },
-      visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
-  };
-
-  const content = (
-      <motion.div
-          variants={cardVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          whileHover={{ y: -3 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-      >
-          <TiltCard intensity={6} className="rounded-xl">
-              <div className={`relative p-6 rounded-xl overflow-hidden
-                ${current
-                  ? 'bg-glass-bg backdrop-blur-[20px] border border-accent/40 shadow-xl shadow-accent/10'
-                  : 'bg-glass-bg backdrop-blur-[20px] border border-glass-border'
-                }`}
-              >
-                  {current && (
-                      <div className="absolute inset-0 rounded-xl pointer-events-none"
-                           style={{ background: 'linear-gradient(135deg, rgba(34,211,238,0.08) 0%, transparent 60%)' }} />
-                  )}
-
-                  <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
-                      <span className={`inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border
-                        ${type === 'work'
-                          ? 'bg-accent/10 text-accent border-accent/20'
-                          : 'bg-violet-500/10 text-violet-400 border-violet-500/20'
-                        }`}>
-                          {type === 'work' ? 'Experience' : 'Education'}
-                      </span>
-                      {current && (
-                          <span className="inline-flex items-center gap-1.5 bg-accent/10 text-accent text-xs font-bold px-2.5 py-1 rounded-full border border-accent/30">
-                              <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
-                              CURRENT
-                          </span>
-                      )}
-                  </div>
-
-                  <p className="text-accent text-sm mb-1 font-semibold">{date}</p>
-                  <h3 className="text-xl font-bold mb-1 text-text-primary">{title}</h3>
-                  <p className="text-md font-semibold text-text-secondary mb-4">{institution}</p>
-
-                  <AnimatePresence>
-                      {isExpanded && (
-                          <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="overflow-hidden"
-                          >
-                              <ul className="space-y-2.5 mt-2">
-                                  {details.map((point, i) => (
-                                      <li key={i} className="flex items-start gap-2.5 text-text-secondary text-sm leading-relaxed">
-                                          <span className="text-accent mt-1 flex-shrink-0 text-xs">▸</span>
-                                          {point}
-                                      </li>
-                                  ))}
-                              </ul>
-                          </motion.div>
-                      )}
-                  </AnimatePresence>
-
-                  <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="mt-4 flex items-center gap-2 text-accent font-semibold hover:text-accent-hover transition-colors text-sm"
-                  >
-                      {isExpanded ? 'View Less' : 'View More'}
-                      <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                        <FaChevronDown size={12} />
-                      </motion.div>
-                  </button>
-              </div>
-          </TiltCard>
-      </motion.div>
-  );
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ['start center', 'end center'],
+  });
 
   return (
-      <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] items-start gap-x-4 md:gap-x-8">
-          <div className="md:hidden col-start-2 col-span-2 row-start-1 pl-4">{content}</div>
-          <div className="hidden md:block">{isLeft ? content : <div/>}</div>
-          <div className="flex items-center justify-center row-start-1 col-start-2 md:col-start-2">
-              <div className={`z-10 flex items-center justify-center w-12 h-12 rounded-full border-2
-                ${current
-                  ? 'bg-accent text-background-primary border-accent shadow-lg shadow-accent/30'
-                  : 'bg-background-primary border-accent'
-                }`}>
-                  <Icon className={current ? 'text-background-primary' : 'text-accent'} size={20} />
-              </div>
+    <section id="journey" className="py-28 px-6 sm:px-10 lg:px-20 xl:px-28">
+      <div className="max-w-7xl mx-auto">
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <span className="section-label">02 / Journey</span>
+          <h2 className="section-heading">My Journey</h2>
+        </motion.div>
+
+        <div className="relative" ref={timelineRef}>
+          {/* Scroll-driven vertical line — centered in the dot column (w-10 = 40px, center = 20px = left-5) */}
+          <div className="absolute left-5 top-3 bottom-3 w-px pointer-events-none overflow-hidden">
+            <div className="absolute inset-0 bg-accent/[0.08]" />
+            <motion.div
+              className="absolute top-0 left-0 right-0 origin-top"
+              style={{
+                height: '100%',
+                scaleY: scrollYProgress,
+                background: 'linear-gradient(to bottom, var(--accent), rgba(34,211,238,0.15))',
+              }}
+            />
           </div>
-          <div className="hidden md:block">{!isLeft && content}</div>
+
+          <div className="space-y-5">
+            {journeyData.map((item, index) => (
+              <JourneyEntry
+                key={index}
+                item={item as JourneyItemData}
+                index={index}
+              />
+            ))}
+          </div>
+        </div>
       </div>
+    </section>
+  );
+};
+
+const JourneyEntry = ({ item, index }: { item: JourneyItemData; index: number }) => {
+  const [isExpanded, setIsExpanded] = useState(item.current);
+  const { icon: Icon, title, institution, ghost, date, duration, highlight, details, type, current } = item;
+  const isEdu = type === 'education';
+
+  return (
+    <motion.div
+      className="relative flex gap-5 sm:gap-7"
+      initial={{ opacity: 0, x: 30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* Left: dot — w-10 keeps line centered */}
+      <div className="flex-shrink-0 w-10 flex justify-center pt-[3px] z-10">
+        <div
+          className={`relative flex items-center justify-center w-10 h-10 rounded-full border-2 flex-shrink-0 transition-all duration-300
+            ${current
+              ? 'bg-accent border-accent shadow-[0_0_20px_rgba(34,211,238,0.35)]'
+              : isEdu
+                ? 'bg-violet-500/10 border-violet-500/40'
+                : 'bg-background-primary border-accent/35 hover:border-accent/70'
+            }`}
+        >
+          {/* Live indicator */}
+          {current && (
+            <span className="absolute -top-1 -right-1 flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-70" />
+              <span className="relative inline-flex h-3 w-3 rounded-full bg-green-400" />
+            </span>
+          )}
+          <Icon
+            size={14}
+            className={
+              current
+                ? 'text-background-primary'
+                : isEdu
+                  ? 'text-violet-400'
+                  : 'text-accent'
+            }
+          />
+        </div>
+      </div>
+
+      {/* Right: card */}
+      <div className="flex-1 min-w-0 pb-5">
+        <TiltCard intensity={3} className="rounded-2xl">
+          <div
+            className={`relative overflow-hidden rounded-2xl p-5 sm:p-6 transition-all duration-300
+              ${current
+                ? 'bg-glass-bg backdrop-blur-[20px] border border-accent/30 shadow-lg shadow-accent/[0.06]'
+                : isEdu
+                  ? 'bg-glass-bg backdrop-blur-[20px] border border-glass-border hover:border-violet-500/20'
+                  : 'bg-glass-bg backdrop-blur-[20px] border border-glass-border hover:border-accent/15'
+              }`}
+          >
+            {/* Ghost watermark — institution shorthand */}
+            <span
+              aria-hidden="true"
+              className="absolute right-0 bottom-[-0.15em] font-display font-black leading-none uppercase select-none pointer-events-none"
+              style={{
+                fontSize: 'clamp(3.5rem, 8vw, 6.5rem)',
+                color: 'var(--text-primary)',
+                opacity: isEdu ? 0.025 : 0.03,
+              }}
+            >
+              {ghost}
+            </span>
+
+            {/* Gradient tint for current */}
+            {current && (
+              <div
+                className="absolute inset-0 rounded-2xl pointer-events-none"
+                style={{ background: 'linear-gradient(135deg, rgba(34,211,238,0.055) 0%, transparent 55%)' }}
+              />
+            )}
+
+            {/* Edu tint */}
+            {isEdu && (
+              <div
+                className="absolute inset-0 rounded-2xl pointer-events-none"
+                style={{ background: 'linear-gradient(135deg, rgba(139,92,246,0.04) 0%, transparent 50%)' }}
+              />
+            )}
+
+            {/* ── Top badge row ── */}
+            <div className="relative flex flex-wrap items-center gap-2 mb-4">
+              {/* Type badge */}
+              <span
+                className={`inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border
+                  ${isEdu
+                    ? 'text-violet-400 border-violet-500/25 bg-violet-500/[0.08]'
+                    : 'text-accent border-accent/25 bg-accent/[0.08]'
+                  }`}
+              >
+                <Icon size={8} />
+                {isEdu ? 'Education' : 'Work'}
+              </span>
+
+              {/* Current badge */}
+              {current && (
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-1 rounded-full border border-green-400/25 bg-green-400/[0.08] text-green-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                  Current
+                </span>
+              )}
+
+              {/* Highlight metric */}
+              <span className="inline-flex items-center text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full border border-border-color text-text-muted bg-background-secondary/40">
+                {highlight}
+              </span>
+
+              {/* Duration + date — pushed right */}
+              <div className="ml-auto flex items-center gap-2">
+                <span className="hidden sm:block text-[10px] font-mono text-text-muted">{duration}</span>
+                <span className={`text-[10px] font-mono ${current ? 'text-accent' : 'text-text-muted'}`}>{date}</span>
+              </div>
+            </div>
+
+            {/* ── Title ── */}
+            <h3 className="relative text-lg sm:text-xl font-display font-bold text-text-primary leading-tight mb-1">
+              {title}
+            </h3>
+
+            {/* ── Institution ── */}
+            <p className="relative text-sm font-medium text-text-secondary mb-4">{institution}</p>
+
+            {/* ── Expandable details ── */}
+            <AnimatePresence>
+              {isExpanded && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="relative border-t border-border-color pt-4 mt-1">
+                    <ul className="space-y-2.5">
+                      {details.map((point, i) => (
+                        <li key={i} className="flex items-start gap-3 text-text-secondary text-sm leading-relaxed">
+                          <span
+                            className={`mt-[6px] flex-shrink-0 ${isEdu ? 'text-violet-400' : 'text-accent'}`}
+                            style={{ fontSize: '7px' }}
+                          >
+                            ▶
+                          </span>
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* ── Toggle ── */}
+            <button
+              onClick={() => setIsExpanded(v => !v)}
+              className={`relative mt-4 flex items-center gap-1.5 text-[11px] font-mono font-bold uppercase tracking-widest transition-colors duration-200
+                ${isEdu ? 'text-violet-400 hover:text-violet-300' : 'text-accent hover:text-accent-hover'}`}
+            >
+              {isExpanded ? 'Collapse' : 'View Details'}
+              <motion.span animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                <FaChevronDown size={9} />
+              </motion.span>
+            </button>
+          </div>
+        </TiltCard>
+      </div>
+    </motion.div>
   );
 };

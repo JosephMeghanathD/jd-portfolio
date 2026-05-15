@@ -1,9 +1,16 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaGithub, FaExternalLinkAlt, FaSitemap } from 'react-icons/fa';
-import { useState, useEffect, useRef } from 'react';
+import { FaGithub, FaExternalLinkAlt, FaSitemap, FaArrowRight } from 'react-icons/fa';
+import { useState } from 'react';
 import { SystemDiagram, hasDiagram } from './SystemDiagrams';
 
 const projectsData = [
+    {
+        image: '/projects/finara.svg',
+        title: 'Finara — AI Financial Storyteller',
+        description: 'A full-stack AI finance platform that transforms raw transaction data into personalized financial narratives using a locally-run Gemma 3:4b model. Features ML-powered anomaly detection, time-series spending forecasts, and an interactive AI chat — with zero data egress.',
+        tags: ['Java', 'Spring Boot', 'Python', 'Flask', 'Gemma AI', 'React', 'PostgreSQL', 'Docker', 'Ollama'],
+        sourceUrl: 'https://github.com/JosephMeghanathD/Finara',
+    },
     {
         image: '/projects/record.png',
         title: 'RecordRules v1.0.4',
@@ -23,7 +30,7 @@ const projectsData = [
     {
         image: '/projects/TP.png',
         title: 'TaskPilot: AI Microservices To-Do App',
-        description: 'A full-stack, cloud-native to-do application built with a microservice architecture, featuring AI-powered task decomposition using Google\'s Gemini.',
+        description: "A full-stack, cloud-native to-do application built with a microservice architecture, featuring AI-powered task decomposition using Google's Gemini.",
         tags: ['React', 'TypeScript', 'Spring Boot', 'PostgreSQL', 'Docker', 'JWT', 'GCP', 'Gemini AI'],
         liveUrl: 'https://jdtaskpilot.netlify.app/',
         sourceUrl: 'https://github.com/JosephMeghanathD/TodoPilot',
@@ -78,236 +85,294 @@ const projectsData = [
     },
 ];
 
-const CARD_WIDTH = 440;
-const GAP = 28;
+/* ── Mobile compact card ─────────────────────────────────── */
+const MobileCard = ({ project, index }: { project: typeof projectsData[0]; index: number }) => (
+    <motion.div
+        className="rounded-2xl overflow-hidden border border-glass-border bg-glass-bg backdrop-blur-sm"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ delay: index * 0.05, duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+    >
+        <div className="relative h-40 overflow-hidden">
+            <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background-primary/80 via-transparent to-transparent" />
+            <span className="absolute top-2.5 left-3 text-[10px] font-mono text-white/50 tabular-nums">
+                {String(index + 1).padStart(2, '0')}
+            </span>
+            {hasDiagram(project.title) && (
+                <span className="absolute top-2.5 right-3 text-[8px] font-mono text-accent border border-accent/30 bg-background-elevated/80 backdrop-blur-sm px-1.5 py-0.5 rounded">
+                    ARCH
+                </span>
+            )}
+        </div>
+        <div className="p-4">
+            <h3 className="text-sm font-bold text-text-primary mb-2 leading-snug">{project.title}</h3>
+            <div className="flex flex-wrap gap-1.5 mb-3">
+                {project.tags.slice(0, 4).map(tag => (
+                    <span key={tag} className="text-[9px] font-mono px-2 py-0.5 rounded-full border border-border-color text-text-muted">
+                        {tag}
+                    </span>
+                ))}
+            </div>
+            <div className="flex items-center gap-4 pt-2 border-t border-border-color">
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-accent text-xs font-semibold hover:text-accent-hover transition-colors">
+                    <FaExternalLinkAlt size={10} /> Demo
+                </a>
+                <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-text-secondary text-xs font-semibold hover:text-text-primary transition-colors">
+                    <FaGithub size={12} /> Source
+                </a>
+            </div>
+        </div>
+    </motion.div>
+);
 
+/* ── Main component ──────────────────────────────────────── */
 export const Projects = () => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isHovering, setIsHovering] = useState(false);
-    const [isPaused, setIsPaused] = useState(false);
-    const [archOpen, setArchOpen] = useState(false);
-    const carouselRef = useRef<HTMLDivElement>(null);
-    const sectionRef = useRef<HTMLElement>(null);
-
-    const displayProjects = [...projectsData, ...projectsData, ...projectsData];
-    const centeredIndex = projectsData.length + (currentIndex % projectsData.length);
-    const activeProject = projectsData[currentIndex % projectsData.length];
-    const activeHasDiagram = hasDiagram(activeProject.title);
-
-    // Close architecture panel when switching to a project without a diagram
-    useEffect(() => {
-        if (!activeHasDiagram) setArchOpen(false);
-    }, [activeHasDiagram, currentIndex]);
-
-    // Auto-scroll — pauses on card click, resumes on click outside section
-    useEffect(() => {
-        if (isHovering || isPaused) return;
-        const interval = setInterval(() => setCurrentIndex(p => p + 1), 3000);
-        return () => clearInterval(interval);
-    }, [isHovering, isPaused]);
-
-    // Click outside the section resumes auto-scroll
-    useEffect(() => {
-        if (!isPaused) return;
-        const handler = (e: MouseEvent) => {
-            if (sectionRef.current && !sectionRef.current.contains(e.target as Node)) {
-                setIsPaused(false);
-            }
-        };
-        document.addEventListener('mousedown', handler);
-        return () => document.removeEventListener('mousedown', handler);
-    }, [isPaused]);
-
-    const handleCardClick = (i: number) => {
-        if (i === centeredIndex) return;
-        setIsPaused(true);
-        setCurrentIndex(currentIndex + (i - centeredIndex));
-    };
+    const [activeIdx, setActiveIdx] = useState(0);
+    const active = projectsData[activeIdx];
+    const activeHasDiagram = hasDiagram(active.title);
 
     return (
-        <section id="projects" ref={sectionRef} className="py-24 overflow-hidden">
-            <div className="flex flex-col items-center">
+        <section id="projects" className="py-24 px-6 sm:px-10 lg:px-20 xl:px-28">
+            <div className="max-w-7xl mx-auto">
 
-                {/* Header */}
+                {/* ── Header ── */}
                 <motion.div
-                    className="mb-12 w-full px-6 sm:px-10 lg:px-20 xl:px-28 max-w-7xl mx-auto"
+                    className="mb-10"
                     initial={{ opacity: 0, y: -20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5 }}
                 >
-                    <p className="text-text-muted text-xs font-mono uppercase tracking-widest mb-2">03 / Projects</p>
-                    <h2 className="text-4xl md:text-5xl font-bold text-text-primary">My Projects</h2>
+                    <span className="section-label">03 / Projects</span>
+                    <h2 className="section-heading">My Projects</h2>
                 </motion.div>
 
-                {/* Carousel */}
-                <div
-                    className="w-full relative h-[530px] md:h-[560px]"
-                    style={{ perspective: '2000px' }}
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                >
-                    <motion.div
-                        ref={carouselRef}
-                        className="absolute left-1/2 flex"
-                        style={{ gap: GAP, transformStyle: 'preserve-3d' }}
-                        animate={{ x: `calc(-${centeredIndex * (CARD_WIDTH + GAP)}px - ${CARD_WIDTH / 2}px)` }}
-                        transition={{ type: 'spring', stiffness: 200, damping: 40 }}
-                    >
-                        {displayProjects.map((project, i) => {
-                            const distance = i - centeredIndex;
-                            const rotateY = Math.max(-22, Math.min(22, distance * 9));
-                            const isCentered = i === centeredIndex;
-                            const projectHasDiagram = hasDiagram(project.title);
+                {/* ── DESKTOP: Dossier split-panel ── */}
+                <div className="hidden lg:grid lg:grid-cols-[300px_1fr] xl:grid-cols-[340px_1fr] gap-0 items-start">
 
-                            return (
-                                <motion.div
-                                    key={`${project.title}-${i}`}
-                                    className={`flex-shrink-0 rounded-2xl overflow-hidden ${!isCentered ? 'cursor-pointer' : ''}`}
-                                    style={{
-                                        width: CARD_WIDTH,
-                                        background: isCentered ? 'var(--glass-bg)' : 'var(--bg-elevated)',
-                                        backdropFilter: isCentered ? 'blur(20px)' : 'none',
-                                        WebkitBackdropFilter: isCentered ? 'blur(20px)' : 'none',
-                                    }}
-                                    onClick={() => handleCardClick(i)}
-                                    animate={{
-                                        scale: isCentered ? 1.04 : 0.87,
-                                        opacity: isCentered ? 1 : 0.42,
-                                        filter: isCentered ? 'blur(0px)' : 'blur(2.5px)',
-                                        rotateY,
-                                    }}
-                                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                                >
-                                    <div className={`border rounded-2xl overflow-hidden h-full flex flex-col ${
-                                        isCentered ? 'border-accent/20 shadow-xl shadow-accent/8' : 'border-border-color'
-                                    }`}>
-                                        {/* Image */}
-                                        <div className="relative h-52 overflow-hidden flex-shrink-0">
-                                            <img
-                                                src={project.image}
-                                                alt={project.title}
-                                                className="w-full h-full object-cover"
+                    {/* LEFT — Index rail */}
+                    <div className="border-r border-border-color pr-6 xl:pr-10 sticky top-28 self-start">
+                        {/* Rail header */}
+                        <div className="flex items-center justify-between mb-3 pb-3 border-b border-border-color">
+                            <span className="text-[10px] font-mono text-text-muted uppercase tracking-widest">Index</span>
+                            <span className="text-[10px] font-mono text-text-muted tabular-nums">
+                                {String(activeIdx + 1).padStart(2, '0')} / {projectsData.length}
+                            </span>
+                        </div>
+
+                        {/* Project rows */}
+                        <div className="flex flex-col">
+                            {projectsData.map((project, i) => {
+                                const isActive = i === activeIdx;
+                                return (
+                                    <motion.button
+                                        key={project.title}
+                                        onClick={() => setActiveIdx(i)}
+                                        className={`relative group flex items-start gap-3 py-3.5 border-b border-border-color text-left pl-3 transition-colors duration-200 ${
+                                            isActive ? 'bg-accent/[0.04]' : 'hover:bg-background-secondary/40'
+                                        }`}
+                                        initial={{ opacity: 0, x: -16 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: i * 0.04, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        {/* Sliding accent bar */}
+                                        {isActive && (
+                                            <motion.div
+                                                layoutId="active-project-bar"
+                                                className="absolute left-0 top-0 bottom-0 w-[2px] bg-accent"
+                                                transition={{ type: 'spring', stiffness: 350, damping: 32 }}
                                             />
-                                            {/* Gradient overlay */}
-                                            <div className="absolute inset-0 bg-gradient-to-t from-background-elevated/80 via-transparent to-transparent" />
-                                            {/* Architecture badge */}
-                                            {projectHasDiagram && (
-                                                <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-background-elevated/90 backdrop-blur-sm border border-accent/25 rounded-full px-2.5 py-1">
-                                                    <FaSitemap size={9} className="text-accent" />
-                                                    <span className="text-accent text-[9px] font-mono font-semibold uppercase tracking-wide">Architecture</span>
-                                                </div>
-                                            )}
-                                        </div>
+                                        )}
 
-                                        {/* Content */}
-                                        <div className="p-5 flex flex-col flex-grow">
-                                            <h3 className="text-xl font-bold text-text-primary mb-2 leading-tight">{project.title}</h3>
+                                        {/* Index number */}
+                                        <span className={`text-[10px] font-mono tabular-nums flex-shrink-0 mt-0.5 transition-colors duration-200 ${
+                                            isActive ? 'text-accent' : 'text-text-muted group-hover:text-text-secondary'
+                                        }`}>
+                                            {String(i + 1).padStart(2, '0')}
+                                        </span>
 
-                                            {/* Tags */}
-                                            <div className="flex flex-wrap gap-1.5 mb-3">
-                                                {project.tags.slice(0, 5).map(tag => (
-                                                    <span key={tag} className="bg-accent/8 text-accent text-[10px] font-semibold px-2 py-0.5 rounded-full border border-accent/18">
+                                        {/* Title + tags */}
+                                        <div className="flex-1 min-w-0">
+                                            <span className={`text-[13px] font-bold leading-snug block truncate transition-colors duration-200 ${
+                                                isActive ? 'text-text-primary' : 'text-text-secondary group-hover:text-text-primary'
+                                            }`}>
+                                                {project.title}
+                                            </span>
+                                            <div className="flex gap-2 mt-1 flex-wrap">
+                                                {project.tags.slice(0, 3).map(tag => (
+                                                    <span key={tag} className={`text-[9px] font-mono transition-colors duration-200 ${
+                                                        isActive ? 'text-accent/70' : 'text-text-muted'
+                                                    }`}>
                                                         {tag}
                                                     </span>
                                                 ))}
-                                                {project.tags.length > 5 && (
-                                                    <span className="text-text-muted text-[10px] px-2 py-0.5 font-mono">
-                                                        +{project.tags.length - 5}
-                                                    </span>
-                                                )}
-                                            </div>
-
-                                            <p className="text-text-secondary text-sm leading-relaxed flex-grow mb-4">{project.description}</p>
-
-                                            {/* Actions */}
-                                            <div className="flex items-center gap-4 mt-auto pt-2 border-t border-border-color">
-                                                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer"
-                                                    className="flex items-center gap-1.5 text-accent text-sm font-semibold hover:text-accent-hover transition-colors">
-                                                    <FaExternalLinkAlt size={12} /> Live Demo
-                                                </a>
-                                                <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer"
-                                                    className="flex items-center gap-1.5 text-text-secondary text-sm font-semibold hover:text-text-primary transition-colors">
-                                                    <FaGithub size={14} /> Source
-                                                </a>
-                                                {projectHasDiagram && isCentered && (
-                                                    <button
-                                                        onClick={() => setArchOpen(o => !o)}
-                                                        className={`ml-auto flex items-center gap-1.5 text-xs font-mono font-semibold px-3 py-1.5 rounded-full border transition-all duration-300 ${
-                                                            archOpen
-                                                                ? 'bg-accent text-[#09090B] border-accent'
-                                                                : 'text-accent border-accent/30 hover:bg-accent/10'
-                                                        }`}
-                                                    >
-                                                        <FaSitemap size={10} />
-                                                        {archOpen ? 'Hide' : 'Architecture'}
-                                                    </button>
-                                                )}
                                             </div>
                                         </div>
-                                    </div>
-                                </motion.div>
-                            );
-                        })}
-                    </motion.div>
-                </div>
 
-                {/* Nav dots */}
-                <div className="flex items-center gap-2 mt-4">
-                    {projectsData.map((_, i) => {
-                        const active = i === currentIndex % projectsData.length;
-                        return (
-                            <button
-                                key={i}
-                                onClick={() => setCurrentIndex(projectsData.length + i)}
-                                aria-label={`Go to project ${i + 1}`}
-                                className={`rounded-full transition-all duration-300 ${
-                                    active ? 'w-6 h-2 bg-accent' : 'w-2 h-2 bg-border-color hover:bg-text-muted'
-                                }`}
-                            />
-                        );
-                    })}
-                </div>
+                                        {/* Right badges */}
+                                        <div className="flex items-center gap-1.5 flex-shrink-0 mt-0.5">
+                                            {hasDiagram(project.title) && (
+                                                <span className="text-[8px] font-mono text-accent border border-accent/25 px-1.5 py-0.5 rounded leading-none">
+                                                    ARCH
+                                                </span>
+                                            )}
+                                            <FaArrowRight
+                                                size={9}
+                                                className={`transition-all duration-200 ${
+                                                    isActive ? 'text-accent' : 'text-text-muted opacity-0 group-hover:opacity-100'
+                                                }`}
+                                            />
+                                        </div>
+                                    </motion.button>
+                                );
+                            })}
+                        </div>
+                    </div>
 
-                {/* Architecture panel */}
-                <AnimatePresence>
-                    {archOpen && activeHasDiagram && (
-                        <motion.div
-                            key={activeProject.title}
-                            className="w-full max-w-3xl px-6 mt-8"
-                            initial={{ opacity: 0, y: 20, height: 0 }}
-                            animate={{ opacity: 1, y: 0, height: 'auto' }}
-                            exit={{ opacity: 0, y: 10, height: 0 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                        >
-                            <div className="bg-glass-bg backdrop-blur-[20px] border border-glass-border rounded-2xl p-6 shadow-xl shadow-black/20">
-                                {/* Panel header */}
-                                <div className="flex items-center gap-3 mb-5">
-                                    <div className="w-7 h-7 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
-                                        <FaSitemap size={12} className="text-accent" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] text-text-muted font-mono uppercase tracking-widest">System Architecture</p>
-                                        <p className="text-sm font-semibold text-text-primary leading-tight">{activeProject.title}</p>
-                                    </div>
+                    {/* RIGHT — Active project detail */}
+                    <div className="pl-6 xl:pl-10 min-w-0">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={activeIdx}
+                                initial={{ opacity: 0, y: 18 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                                className="relative"
+                            >
+                                {/* Ghost index number */}
+                                <span
+                                    aria-hidden="true"
+                                    className="absolute -top-2 right-0 font-display font-black leading-none select-none pointer-events-none text-text-primary/[0.04] tabular-nums"
+                                    style={{ fontSize: 'clamp(5rem, 10vw, 9rem)' }}
+                                >
+                                    {String(activeIdx + 1).padStart(2, '0')}
+                                </span>
+
+                                {/* Hero image */}
+                                <div className="relative rounded-2xl overflow-hidden mb-6" style={{ height: '260px' }}>
+                                    <motion.img
+                                        src={active.image}
+                                        alt={active.title}
+                                        className="w-full h-full object-cover"
+                                        initial={{ scale: 1.06 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-background-primary/75 via-transparent to-transparent pointer-events-none" />
+
+                                    {/* Top scan line */}
+                                    <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent pointer-events-none" />
+
+                                    {/* Architecture badge */}
+                                    {activeHasDiagram && (
+                                        <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-background-elevated/90 backdrop-blur-sm border border-accent/30 rounded-full px-2.5 py-1">
+                                            <FaSitemap size={9} className="text-accent" />
+                                            <span className="text-[9px] font-mono text-accent uppercase tracking-wide font-semibold">Architecture</span>
+                                        </div>
+                                    )}
                                 </div>
 
-                                {/* Diagram */}
-                                <AnimatePresence mode="wait">
-                                    <motion.div
-                                        key={activeProject.title}
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        transition={{ duration: 0.25 }}
+                                {/* Title */}
+                                <h3 className="text-2xl xl:text-3xl font-display font-bold text-text-primary leading-tight mb-4 relative">
+                                    {active.title}
+                                </h3>
+
+                                {/* Tags */}
+                                <div className="flex flex-wrap gap-2 mb-5 relative">
+                                    {active.tags.map(tag => (
+                                        <span
+                                            key={tag}
+                                            className="text-[10px] font-mono font-semibold px-2.5 py-1 rounded-full border border-accent/20 bg-accent/[0.06] text-accent"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+
+                                {/* Description */}
+                                <p className="text-text-secondary text-[15px] leading-relaxed mb-7 relative max-w-[62ch]">
+                                    {active.description}
+                                </p>
+
+                                {/* CTA buttons */}
+                                <div className="flex items-center gap-3 mb-8 relative">
+                                    {'liveUrl' in active && active.liveUrl && (
+                                        <motion.a
+                                            href={active.liveUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-[#09090B] font-bold rounded-xl text-sm tracking-wide"
+                                            whileHover={{ y: -2, boxShadow: '0 16px 36px rgba(34,211,238,0.28)' }}
+                                            whileTap={{ scale: 0.97 }}
+                                            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                                        >
+                                            <FaExternalLinkAlt size={11} />
+                                            Live Demo
+                                        </motion.a>
+                                    )}
+                                    <motion.a
+                                        href={active.sourceUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-5 py-2.5 glass-card rounded-xl text-sm font-medium text-text-secondary hover:text-text-primary hover:border-accent/25 transition-colors"
+                                        whileHover={{ y: -2 }}
+                                        whileTap={{ scale: 0.97 }}
+                                        transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                                     >
-                                        <SystemDiagram title={activeProject.title} />
+                                        <FaGithub size={14} />
+                                        Source Code
+                                    </motion.a>
+                                </div>
+
+                                {/* Architecture diagram */}
+                                {activeHasDiagram && (
+                                    <motion.div
+                                        className="relative rounded-2xl overflow-hidden border border-glass-border"
+                                        initial={{ opacity: 0, y: 12 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.4, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        {/* Panel titlebar */}
+                                        <div className="flex items-center justify-between px-5 py-3 border-b border-border-color bg-background-elevated/40 backdrop-blur-sm">
+                                            <div className="flex items-center gap-2.5">
+                                                <div className="w-6 h-6 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center flex-shrink-0">
+                                                    <FaSitemap size={10} className="text-accent" />
+                                                </div>
+                                                <div>
+                                                    <p className="text-[9px] font-mono text-text-muted uppercase tracking-widest leading-none mb-0.5">System Architecture</p>
+                                                    <p className="text-[11px] font-semibold text-text-primary leading-none">{active.title}</p>
+                                                </div>
+                                            </div>
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="w-2 h-2 rounded-full bg-green-400/70" />
+                                                <span className="w-2 h-2 rounded-full bg-yellow-400/40" />
+                                                <span className="w-2 h-2 rounded-full bg-border-color" />
+                                            </div>
+                                        </div>
+
+                                        {/* Diagram */}
+                                        <div className="p-5 bg-glass-bg backdrop-blur-sm">
+                                            <SystemDiagram title={active.title} />
+                                        </div>
                                     </motion.div>
-                                </AnimatePresence>
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                                )}
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+                </div>
+
+                {/* ── MOBILE: Compact grid ── */}
+                <div className="lg:hidden grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {projectsData.map((project, i) => (
+                        <MobileCard key={project.title} project={project} index={i} />
+                    ))}
+                </div>
 
             </div>
         </section>

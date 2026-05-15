@@ -10,32 +10,42 @@ import { ScrollToTopButton } from './components/ScrollToTopButton';
 function App() {
   return (
     <div>
-      {/* Atmospheric gradient orb background */}
+      {/* Background system */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        {/* Primary cyan orb — top left */}
+
+        {/* Noise grain texture */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.025]" xmlns="http://www.w3.org/2000/svg">
+          <filter id="grain">
+            <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" />
+            <feColorMatrix type="saturate" values="0" />
+          </filter>
+          <rect width="100%" height="100%" filter="url(#grain)" />
+        </svg>
+
+        {/* Dot grid */}
         <div
-          className="absolute -top-60 -left-60 w-[900px] h-[900px] rounded-full animate-float-a"
-          style={{ background: 'radial-gradient(circle, var(--orb-a) 0%, transparent 65%)' }}
-        />
-        {/* Secondary violet orb — bottom right */}
-        <div
-          className="absolute -bottom-60 -right-60 w-[1000px] h-[1000px] rounded-full animate-float-b"
-          style={{ background: 'radial-gradient(circle, var(--orb-b) 0%, transparent 65%)' }}
-        />
-        {/* Tertiary mid-page accent */}
-        <div
-          className="absolute top-[45%] left-[55%] w-[500px] h-[500px] -translate-x-1/2 -translate-y-1/2 rounded-full animate-float-c"
-          style={{ background: 'radial-gradient(circle, var(--orb-a) 0%, transparent 70%)', opacity: 0.4 }}
-        />
-        {/* Subtle grid texture */}
-        <div
-          className="absolute inset-0 opacity-[0.03] dark:opacity-[0.04]"
+          className="absolute inset-0"
           style={{
-            backgroundImage:
-              'linear-gradient(var(--text-muted) 1px, transparent 1px), linear-gradient(90deg, var(--text-muted) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
+            backgroundImage: 'radial-gradient(circle, var(--border-color) 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
           }}
         />
+
+        {/* Top radial beam — primary atmosphere */}
+        <div
+          className="absolute -top-48 left-1/2 -translate-x-1/2 w-[1100px] h-[700px] rounded-full"
+          style={{ background: 'radial-gradient(ellipse, var(--orb-a) 0%, transparent 68%)' }}
+        />
+
+        {/* Bottom-right secondary orb */}
+        <div
+          className="absolute -bottom-80 -right-60 w-[900px] h-[900px] rounded-full animate-float-b"
+          style={{ background: 'radial-gradient(circle, var(--orb-b) 0%, transparent 65%)' }}
+        />
+
+        {/* Faint horizontal lines for depth */}
+        <div className="absolute top-[30%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/[0.04] to-transparent" />
+        <div className="absolute top-[65%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/[0.03] to-transparent" />
       </div>
 
       <Header />
@@ -49,7 +59,7 @@ function App() {
         <Projects />
         <Contact />
         <footer className="relative border-t border-border-color py-8 px-6 sm:px-10 lg:px-20 xl:px-28">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-40 h-px bg-gradient-to-r from-transparent via-accent/50 to-transparent" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent" />
           <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
             <span className="text-text-muted text-xs font-mono">© 2026 Joseph D</span>
             <span className="text-text-muted text-xs font-mono">Built with React · Framer Motion · TypeScript</span>

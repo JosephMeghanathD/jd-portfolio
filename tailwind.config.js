@@ -30,6 +30,7 @@ export default {
       fontFamily: {
         sans: ['"Space Grotesk"', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
+        display: ['"Bricolage Grotesque"', 'sans-serif'],
       },
       keyframes: {
         glow: {
@@ -50,12 +51,22 @@ export default {
           '0%, 100%': { transform: 'translate(0px, 0px)' },
           '50%': { transform: 'translate(20px, -30px)' },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0%)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
+        'marquee-rtl': {
+          '0%': { transform: 'translateX(-50%)' },
+          '100%': { transform: 'translateX(0%)' },
+        },
       },
       animation: {
         glow: 'glow 4s ease-in-out infinite',
         'float-a': 'float-a 22s ease-in-out infinite',
         'float-b': 'float-b 28s ease-in-out infinite',
         'float-c': 'float-c 18s ease-in-out infinite',
+        marquee: 'marquee 32s linear infinite',
+        'marquee-rtl': 'marquee-rtl 32s linear infinite',
       },
     },
   },
